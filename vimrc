@@ -21,6 +21,36 @@
 
 "set guifont=Monaco:h20          " 字体 && 字号
 
+
+"Yingyun specific
+"Tab highlight
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
+
+set ignorecase
+set hlsearch
+set incsearch
+set ruler
+set number
+set smartindent
+set cursorline
+set autoindent
+imap jj <ESC>
+set tags=tags;/
+set autoread
+set mouse=
+
+"Taglist setting
+map <F3> : Tlist<CR>
+let Tlist_Auto_Open = 1
+let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+let Tlist_Use_Right_Window = 0
+let Tlist_Show_One_File = 0
+let Tlist_File_Fold_Auto_Close = 1
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Use_SingleClick = 1
+let Tlist_Process_File_Always = 0
+
 " history存储长度。
 set history=2000
 
@@ -258,10 +288,10 @@ nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 "强迫自己用 hjkl
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
+"map <Left> <Nop>
+"map <Right> <Nop>
+"map <Up> <Nop>
+"map <Down> <Nop>
 
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
@@ -303,7 +333,7 @@ function! HideNumber()
   set number?
 endfunc
 nnoremap <F2> :call HideNumber()<CR>
-nnoremap <F3> :set list! list?<CR>
+"nnoremap <F3> :set list! list?<CR>
 nnoremap <F4> :set wrap! wrap?<CR>
               "set paste
 set pastetoggle=<F5>            " when in insert mode, press <F5> to go to
@@ -482,7 +512,7 @@ let Tlist_Show_One_File = 1
 let Tlist_Sort_Type = "order"
 let Tlist_Use_Horiz_Window = 0
 let Tlist_Use_Right_Window = 0
-let Tlist_WinWidth = 25
+let Tlist_WinWidth = 50
 
 "for file search ctrlp, 文件搜索
 Bundle 'kien/ctrlp.vim'
@@ -566,12 +596,12 @@ Bundle 'vim-scripts/matchit.zip'
 "################### 补全及快速编辑 ###################"
 
 "迄今为止用到的最好的自动VIM自动补全插件
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 "youcompleteme  默认tab  s-tab 和自动补全冲突
 "let g:ycm_key_list_select_completion=['<c-n>']
-let g:ycm_key_list_select_completion = ['<Down>']
+"let g:ycm_key_list_select_completion = ['<Down>']
 "let g:ycm_key_list_previous_completion=['<c-p>']
-let g:ycm_key_list_previous_completion = ['<Up>']
+"let g:ycm_key_list_previous_completion = ['<Up>']
 
 
 "快速插入代码片段
@@ -709,7 +739,7 @@ if has("gui_running")
 endif
 
 " 修改主题和颜色展示
-colorscheme solarized
+colorscheme molokai
 set background=dark
 set t_Co=256
 
@@ -738,22 +768,22 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
 ""定义函数SetTitle，自动插入文件头 尅自定义文件头信息
-autocmd BufNewFile *.sh,*.py exec ":call SetTitle()"
-func SetTitle()
+"autocmd BufNewFile *.sh,*.py exec ":call SetTitle()"
+"func SetTitle()
     "如果文件类型为.sh文件
-    if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
-    endif
+""    if &filetype == 'sh'
+""        call setline(1, "\#!/bin/bash")
+"    endif
 
-    if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call append(1, "\# encoding: utf-8")
-    endif
+""    if &filetype == 'python'
+""        call setline(1, "\#!/usr/bin/env python")
+""        call append(1, "\# encoding: utf-8")
+"    endif
 
-    normal G
-    normal o
-    normal o
-endfunc
+"    normal G
+"    normal o
+"    normal o
+"endfunc
 
 
 " F10 to run python script
