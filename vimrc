@@ -708,6 +708,9 @@ Bundle 'thiderman/nginx-vim-syntax'
 "for Cpp include C11
 Bundle 'octol/vim-cpp-enhanced-highlight'
 
+"for QML
+Bundle 'peterhoeg/vim-qml'
+
 "################### 其他 ###################"
 " task list
 Bundle 'vim-scripts/TaskList.vim'
