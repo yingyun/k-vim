@@ -711,6 +711,9 @@ Bundle 'octol/vim-cpp-enhanced-highlight'
 "for QML
 Bundle 'peterhoeg/vim-qml'
 
+"for enhanced C
+Bundle 'justinmk/vim-syntax-extra'
+
 "################### 其他 ###################"
 " task list
 Bundle 'vim-scripts/TaskList.vim'
