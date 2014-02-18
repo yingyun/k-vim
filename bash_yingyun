@@ -1,0 +1,151 @@
+#Specific for yingyun
+    alias ls='ls -l --color=auto'
+    alias la='ls -al --color=auto'
+    alias sl='ls -l --color=auto'
+    alias lss='ls -l --color=auto | less'
+#    alias svn='svn --username=b490 --password=kMyUA3C6'
+#    alias ipsetting='ifconfig eth0 192.168.203.145 netmask 255.255.255.0'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep-string='grep -nri --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias find-file='find ./ -name '
+    alias find-dir='find ./ -type d | grep'
+
+    alias c='clear'
+    alias open='gnome-open'
+
+#easy command
+    alias logNote='cat ~/code/gggggg/useful_log'
+    alias a='vim'
+    alias gitPush='git push -u origin master'
+    alias FixMe='grep-string "FixMe" ./'
+    alias cformat='. /home/yingyun/code/gggggg/cformat.sh'
+    alias tree='tree -f'
+    alias syncOpenGrok='. ~/code/gggggg/syncOpenGrok.sh'
+    alias g++C11='g++ -std=c++0x'
+
+#easy access
+    alias wk='cd /home/yingyun/code/workSpace'
+    alias st-dir='cd /home/yingyun/code/systrace'
+    alias st-start='python /home/yingyun/code/ADT/ADT-20131030/sdk/platform-tools/systrace/systrace.py'
+    alias st-start-legacy='python /home/yingyun/code/ADT/ADT-20131030/sdk/platform-tools/systrace/systrace-legacy.py'
+    alias st-start-gfx='st-start -t 8 gfx input view sched freq wm am workq res'
+
+    alias code='cd /home/yingyun/code/'
+    alias refreshBashFile='. ~/.bash_yingyun'
+    alias configBaseFile='vim ~/.bash_yingyun'
+    alias gitRenderEvalutor='cd /home/yingyun/code/github/RendererEvalutorForAndroid'
+    alias gitGFX='cd /home/yingyun/code/github/AndroidGraphic'
+    alias gitCowboy='cd /home/yingyun/code/github/Cowboy'
+
+    alias cocos2d='cd /home/yingyun/code/othrProjectSourceCode/cocos2d-x'
+    alias stable_cocos2d='cd /home/yingyun/code/cocos2d-x-2.2/'
+    alias cowboy='cd /home/yingyun/code/cocos2d-x-2.2/project/Cowboy'
+
+#mesa
+    alias mesa_git='cd /home/yingyun/code/SourceRefer/Mesa/mesa_git'
+    alias mesa_demos_git='cd /home/yingyun/code/SourceRefer/Mesa/mesa_demos_git'
+    alias mesa_drm_git='cd /home/yingyun/code/SourceRefer/Mesa/mesa_drm_git'
+    alias mesa_glut_git='cd /home/yingyun/code/SourceRefer/Mesa/mesa_glut_git'
+
+#Git command
+    alias gitStatus='git status'
+    alias gitBranch='git branch'
+    alias gitCommit='git commit -a'
+    alias gitDIFF='git diff > diff.patch'
+    alias gitDiff='git diff'
+
+
+#development related
+#framework
+    alias f2='cd /home/yingyun/code/4.1-Flyme2.2'
+
+
+    alias f3='cd /home/yingyun/code/4.21-Flyme3.0/trunk'
+    alias f3out='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/'
+    alias f3sf='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/services/surfaceflinger'
+    alias f3sfpush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libsurfaceflinger.so /system/lib/'
+    alias f3hwui='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/base/libs/hwui'
+    alias f3hwuipush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libhwui.so /system/lib/'
+    alias f3gui='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/libs/gui'
+    alias f3guipush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libgui.so /system/lib/'
+    alias f3ui='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/libs/ui'
+    alias f3uipush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libui.so /system/lib/'
+    alias f3hwc='cd /home/yingyun/code/4.21-Flyme3.0/trunk/hardware/samsung_slsi/exynos5/libhwc'
+    alias f3hwcpush='adb push ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/vendor/lib/hw/hwcomposer.exynos5.so /system/vendor/lib/hw/'
+    alias f3bootani='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/base/cmds/bootanimation'
+    alias f3bootanipush='adb push /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/bin/bootanimation /system/bin/'
+    alias f3agl='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/opengl/libagl'
+    alias f3lib='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib'
+    alias f3bin='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/bin'
+    alias f3libd='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/symbols/system/lib'
+    alias f3bind='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/symbols/system/bin'
+    alias f3build='./build_mx3.sh'
+
+#android4.4
+    A4_ROOT=/home/yingyun/code/android-4.4_r1
+
+    alias a4='cd $A4_ROOT'
+    alias a4out='cd $A4_ROOT/out/target/product/flo'
+    alias a4sf='cd $A4_ROOT/frameworks/native/services/surfaceflinger'
+    alias a4sfpush='adb push $A4_ROOT/out/target/product/flo/system/lib/libsurfaceflinger.so /system/lib/'
+    alias a4sf_main_push='adb push $A4_ROOT/out/target/product/flo/system/bin/surfaceflinger /system/bin/'
+    alias a4hwui='cd $A4_ROOT/frameworks/base/libs/hwui'
+    alias a4hwuipush='adb push $A4_ROOT/out/target/product/flo/system/lib/libhwui.so /system/lib/'
+    alias a4gui='cd $A4_ROOT/frameworks/native/libs/gui'
+    alias a4guipush='adb push $A4_ROOT/out/target/product/flo/system/lib/libgui.so /system/lib/'
+    alias a4ui='cd $A4_ROOT/frameworks/native/libs/ui'
+    alias a4uipush='adb push $A4_ROOT/out/target/product/flo/system/lib/libui.so /system/lib/'
+    alias a4hwc='cd $A4_ROOT/hardware/qcom/display/msm8960'
+
+#Kitkat
+    KK_ROOT=/home/yingyun/code/KitKat-4.4-research
+
+    alias kk_android='cd $KK_ROOT'
+    alias kkout='cd $KK_ROOT/out/target/product/mx3'
+    alias kksf='cd $KK_ROOT/frameworks/native/services/surfaceflinger'
+    alias kksfpush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libsurfaceflinger.so /system/lib/'
+    alias kksf_main_push='adb push $KK_ROOT/out/target/product/mx3/system/bin/surfaceflinger /system/bin/'
+    alias khwui='cd $KK_ROOT/frameworks/base/libs/hwui'
+    alias kkhwuipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libhwui.so /system/lib/'
+    alias kkgui='cd $KK_ROOT/frameworks/native/libs/gui'
+    alias kkguipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libgui.so /system/lib/'
+    alias kkui='cd $KK_ROOT/frameworks/native/libs/ui'
+    alias kkuipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libui.so /system/lib/'
+    alias kkhwc='cd $KK_ROOT/hardware/'
+
+
+
+
+#Rendering Evalutor
+    alias o3native_RenderingEvalutorBlurGlass='cd /home/yingyun/code/android-4.4_r1/external/RenderingEvalutor_BlurGlass'
+    alias o3native_RenderingEvalutorStandard='cd /home/yingyun/code/android-4.4_r1/external/RenderingEvalutor_Standard'
+    alias o3native_push_RenderingEvalutorBlurGlass='adb push /home/yingyun/code/android-4.4_r1/out/target/product/flo/system/bin/RenderingEvalutorBlurGlass  /system/bin/'
+    alias o3native_push_RenderingEvalutorStandard='adb push /home/yingyun/code/android-4.4_r1/out/target/product/flo/system/bin/RenderEvaluator /system/bin/'
+
+#kernel
+    alias l3='cd /home/yingyun/code/linux-3.4.5-m65/trunk'
+    alias l3build='. /home/yingyun/code/gggggg/kernelCompile.sh'
+    alias l3config='vim /home/yingyun/code/linux-3.4.5-m65/trunk/arch/arm/configs/m6x_v31_eng_defconfig'
+
+#adb command
+    alias arem='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb remount'
+    alias ashell='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb shell'
+    alias akill='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb kill-server'
+    alias apush='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb push'
+    alias apull='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb pull'
+
+
+#Export Environment variable
+    export PATH="$PATH:/home/yingyun/code/4.21-Flyme3.0/trunk/prebuilts/gcc/linux-x86/arm/arm-eabi-4.6/bin:/home/yingyun/bin"
+    export JAVA_HOME=/usr/lib/jvm/java-6-oracle
+    export PATH=$JAVA_HOME/bin:$PATH
+    export NDK_ROOT_LOCAL=/home/yingyun/code/NDK-R9-20131030/
+    export NDK_ROOT=/home/yingyun/code/NDK-R9-20131030/
+    export ANDROID_SDK_ROOT_LOCAL=/home/yingyun/code/ADT-20130522/sdk/
+    export SDK_ROOT=/home/yingyun/code/ADT-20130522/sdk/
+
