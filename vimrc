@@ -699,7 +699,7 @@ Bundle 'nono/jquery.vim'
 Bundle 'Glench/Vim-Jinja2-Syntax'
 
 "for nginx conf file highlight.   need to confirm it works
-Bundle 'thiderman/nginx-vim-syntax'
+"Bundle 'thiderman/nginx-vim-syntax'
 
 "Cui.YY
 "How to install plugin via bundle
