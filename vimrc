@@ -598,7 +598,7 @@ Bundle 'vim-scripts/matchit.zip'
 "################### 补全及快速编辑 ###################"
 
 "迄今为止用到的最好的自动VIM自动补全插件
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 "youcompleteme  默认tab  s-tab 和自动补全冲突
 "let g:ycm_key_list_select_completion=['<c-n>']
 "let g:ycm_key_list_select_completion = ['<Down>']
