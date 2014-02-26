@@ -604,6 +604,8 @@ Bundle 'Valloric/YouCompleteMe'
 "let g:ycm_key_list_select_completion = ['<Down>']
 "let g:ycm_key_list_previous_completion=['<c-p>']
 "let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py' "Global conf file path while not found it
+let g:ycm_confirm_extra_conf=0 "Turn off ask loaded every time
 
 
 "快速插入代码片段
