@@ -8,7 +8,7 @@
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
 
-    alias grep-string='grep -nri --color=auto'
+    alias grepString='grep -nri --color=auto'
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -22,8 +22,9 @@
     alias logNote='cat ~/code/gggggg/useful_log'
     alias a='vim'
     alias gitPush='git push -u origin master'
-    alias FixMe='grep-string "FixMe" ./'
-    alias cformat='. /home/yingyun/code/gggggg/cformat.sh'
+    alias FixMe='grepString "FixMe" ./'
+    alias cformat='. /home/yingyun/code/gggggg/code_formater.sh'
+    alias cformater_single='~/bin/astyle --style=gnu --indent=spaces --indent-switches --indent-labels --indent-preprocessor --indent-col1-comments'
     alias tree='tree -f'
     alias syncOpenGrok='. ~/code/gggggg/syncOpenGrok.sh'
     alias g++C11='g++ -std=c++0x'
@@ -36,11 +37,12 @@
     alias st-start-gfx='st-start -t 8 gfx input view sched freq wm am workq res'
 
     alias code='cd /home/yingyun/code/'
+    alias opensource='cd /home/yingyun/code/opensource/'
     alias refreshBashFile='. ~/.bash_yingyun'
     alias configBaseFile='vim ~/.bash_yingyun'
-    alias gitRenderEvalutor='cd /home/yingyun/code/github/RendererEvalutorForAndroid'
-    alias gitGFX='cd /home/yingyun/code/github/AndroidGraphic'
-    alias gitCowboy='cd /home/yingyun/code/github/Cowboy'
+    alias gitRenderEvalutor='cd /home/yingyun/code/gitHub/RendererEvalutorForAndroid'
+    alias gitGFX='cd /home/yingyun/code/gitHub/AndroidGraphic'
+    alias gitCowboy='cd /home/yingyun/code/gitHub/Cowboy'
 
     alias cocos2d='cd /home/yingyun/code/othrProjectSourceCode/cocos2d-x'
     alias stable_cocos2d='cd /home/yingyun/code/cocos2d-x-2.2/'
@@ -57,6 +59,7 @@
     alias gitBranch='git branch'
     alias gitCommit='git commit -a'
     alias gitDIFF='git diff > diff.patch'
+    alias gitDIFFCached='git diff --cached > diff-cached.patch'
     alias gitDiff='git diff'
 
 
