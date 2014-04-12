@@ -28,6 +28,7 @@
     alias tree='tree -f'
     alias syncOpenGrok='. ~/code/gggggg/syncOpenGrok.sh'
     alias g++C11='g++ -std=c++0x'
+    alias buildLocal='mm -j10'
 
 #easy access
     alias wk='cd /home/yingyun/code/workSpace'
@@ -125,10 +126,7 @@
 
 
 #Rendering Evalutor
-    alias o3native_RenderingEvalutorBlurGlass='cd /home/yingyun/code/android-4.4_r1/external/RenderingEvalutor_BlurGlass'
-    alias o3native_RenderingEvalutorStandard='cd /home/yingyun/code/android-4.4_r1/external/RenderingEvalutor_Standard'
-    alias o3native_push_RenderingEvalutorBlurGlass='adb push /home/yingyun/code/android-4.4_r1/out/target/product/flo/system/bin/RenderingEvalutorBlurGlass  /system/bin/'
-    alias o3native_push_RenderingEvalutorStandard='adb push /home/yingyun/code/android-4.4_r1/out/target/product/flo/system/bin/RenderEvaluator /system/bin/'
+    alias o3native_RenderingEvalutor='cd /home/yingyun/code/android-4.4_r1/external/RenderEvaluator'
 
 #kernel
     alias l3='cd /home/yingyun/code/linux-3.4.5-m65/trunk'
@@ -136,15 +134,15 @@
     alias l3config='vim /home/yingyun/code/linux-3.4.5-m65/trunk/arch/arm/configs/m6x_v31_eng_defconfig'
 
 #adb command
-    alias arem='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb remount'
-    alias ashell='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb shell'
-    alias akill='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb kill-server'
-    alias apush='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb push'
-    alias apull='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb pull'
+    alias arem='adb remount'
+    alias ashell='adb shell'
+    alias akill='adb kill-server'
+    alias apush='adb push'
+    alias apull='adb pull'
 
 
 #Export Environment variable
-    export PATH="$PATH:/home/yingyun/code/4.21-Flyme3.0/trunk/prebuilts/gcc/linux-x86/arm/arm-eabi-4.6/bin:/home/yingyun/bin"
+    export PATH="$PATH:/home/yingyun/bin"
     export JAVA_HOME=/usr/lib/jvm/java-6-oracle
     export PATH=$JAVA_HOME/bin:$PATH
     export NDK_ROOT_LOCAL=/home/yingyun/code/NDK-R9-20131030/
