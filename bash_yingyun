@@ -23,27 +23,29 @@
     alias a='vim'
     alias gitPush='git push -u origin master'
     alias FixMe='grepString "FixMe" ./'
-    alias cformat='. /home/yingyun/code/gggggg/code_formater.sh'
-    alias cformater_single='~/bin/astyle --style=gnu --indent=spaces --indent-switches --indent-labels --indent-preprocessor --indent-col1-comments'
+    alias cformat='. /home/yingyun/code/gggggg/cformat.sh'
     alias tree='tree -f'
     alias syncOpenGrok='. ~/code/gggggg/syncOpenGrok.sh'
     alias g++C11='g++ -std=c++0x'
+    alias Change_To_FULL_PERMISSION='sudo chmod -R 777 ./*'
+    alias Change_To_My_Own='sudo chown yingyun:yingyun -R ./*'
+    alias launchADT='/home/yingyun/code/ADT/adt-bundle-linux-x86_64-20140321/eclipse/eclipse & > /dev/null'
     alias buildLocal='mm -j10'
 
 #easy access
     alias wk='cd /home/yingyun/code/workSpace'
     alias st-dir='cd /home/yingyun/code/systrace'
-    alias st-start='python /home/yingyun/code/ADT/ADT-20131030/sdk/platform-tools/systrace/systrace.py'
-    alias st-start-legacy='python /home/yingyun/code/ADT/ADT-20131030/sdk/platform-tools/systrace/systrace-legacy.py'
-    alias st-start-gfx='st-start -t 8 gfx input view sched freq wm am workq res'
+    alias st-start='python /home/yingyun/code/ADT/adt-bundle-linux-x86_64-20140321/sdk/platform-tools/systrace/systrace.py'
+    alias st-start-legacy='python /home/yingyun/code/ADT/adt-bundle-linux-x86_64-20140321/sdk/platform-tools/systrace/systrace-legacy.py'
+    alias st-start-gfx='st-start -t 8 gfx input view sched freq wm am workq res dalvik'
 
     alias code='cd /home/yingyun/code/'
-    alias opensource='cd /home/yingyun/code/opensource/'
+    alias opensource='cd /home/yingyun/code/opensource'
     alias refreshBashFile='. ~/.bash_yingyun'
     alias configBaseFile='vim ~/.bash_yingyun'
-    alias gitRenderEvalutor='cd /home/yingyun/code/gitHub/RendererEvalutorForAndroid'
-    alias gitGFX='cd /home/yingyun/code/gitHub/AndroidGraphic'
-    alias gitCowboy='cd /home/yingyun/code/gitHub/Cowboy'
+    alias gitRenderEvalutor='cd /home/yingyun/code/github/RendererEvalutorForAndroid'
+    alias gitGFX='cd /home/yingyun/code/github/AndroidGraphic'
+    alias gitCowboy='cd /home/yingyun/code/github/Cowboy'
 
     alias cocos2d='cd /home/yingyun/code/othrProjectSourceCode/cocos2d-x'
     alias stable_cocos2d='cd /home/yingyun/code/cocos2d-x-2.2/'
@@ -58,17 +60,15 @@
 #Git command
     alias gitStatus='git status'
     alias gitBranch='git branch'
-    alias gitCommit='git commit -a'
+    alias gitCommitWithComment='git commit -a -m'
     alias gitDIFF='git diff > diff.patch'
-    alias gitDIFFCached='git diff --cached > diff-cached.patch'
     alias gitDiff='git diff'
+    alias gitDiffCached='git diff --cached'
+    alias gitCheckout--='git checkout --'
 
 
 #development related
 #framework
-    alias f2='cd /home/yingyun/code/4.1-Flyme2.2'
-
-
     alias f3='cd /home/yingyun/code/4.21-Flyme3.0/trunk'
     alias f3out='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/'
     alias f3sf='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/services/surfaceflinger'
@@ -107,26 +107,27 @@
     alias a4hwc='cd $A4_ROOT/hardware/qcom/display/msm8960'
 
 #Kitkat
-    KK_ROOT=/home/yingyun/code/KitKat-4.4-research
+    KK_ROOT=/home/yingyun/code/kitkat-Flyme
 
-    alias kk_android='cd $KK_ROOT'
-    alias kkout='cd $KK_ROOT/out/target/product/mx3'
-    alias kksf='cd $KK_ROOT/frameworks/native/services/surfaceflinger'
-    alias kksfpush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libsurfaceflinger.so /system/lib/'
-    alias kksf_main_push='adb push $KK_ROOT/out/target/product/mx3/system/bin/surfaceflinger /system/bin/'
-    alias khwui='cd $KK_ROOT/frameworks/base/libs/hwui'
-    alias kkhwuipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libhwui.so /system/lib/'
-    alias kkgui='cd $KK_ROOT/frameworks/native/libs/gui'
-    alias kkguipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libgui.so /system/lib/'
-    alias kkui='cd $KK_ROOT/frameworks/native/libs/ui'
-    alias kkuipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libui.so /system/lib/'
-    alias kkhwc='cd $KK_ROOT/hardware/'
+    alias k4='cd $KK_ROOT'
+    alias k4out='cd $KK_ROOT/out/target/product/mx3'
+    alias k4sf='cd $KK_ROOT/frameworks/native/services/surfaceflinger'
+    alias k4sfpush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libsurfaceflinger.so /system/lib/'
+    alias k4sf_main_push='adb push $KK_ROOT/out/target/product/mx3/system/bin/surfaceflinger /system/bin/'
+    alias k4hwui='cd $KK_ROOT/frameworks/base/libs/hwui'
+    alias k4hwuipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libhwui.so /system/lib/'
+    alias k4gui='cd $KK_ROOT/frameworks/native/libs/gui'
+    alias k4guipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libgui.so /system/lib/'
+    alias k4ui='cd $KK_ROOT/frameworks/native/libs/ui'
+    alias k4uipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libui.so /system/lib/'
+    alias k4hwc='cd $KK_ROOT/hardware/samsung_slsi/exynos5/libhwc'
 
 
 
 
 #Rendering Evalutor
-    alias o3native_RenderingEvalutor='cd /home/yingyun/code/android-4.4_r1/external/RenderEvaluator'
+    alias o3native_RenderingEvaluator='cd /home/yingyun/code/android-4.4_r1/external/RenderingEvalutor_Standard'
+    alias o3native_push_RenderingEvaluator='adb push /home/yingyun/code/android-4.4_r1/out/target/product/flo/system/bin/RenderEvaluator /system/bin/'
 
 #kernel
     alias l3='cd /home/yingyun/code/linux-3.4.5-m65/trunk'
@@ -134,14 +135,15 @@
     alias l3config='vim /home/yingyun/code/linux-3.4.5-m65/trunk/arch/arm/configs/m6x_v31_eng_defconfig'
 
 #adb command
-    alias arem='adb remount'
-    alias ashell='adb shell'
-    alias akill='adb kill-server'
-    alias apush='adb push'
-    alias apull='adb pull'
+    alias arem='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb remount'
+    alias ashell='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb shell'
+    alias akill='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb kill-server'
+    alias apush='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb push'
+    alias apull='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb pull'
 
 
 #Export Environment variable
+    #export PATH="$PATH:/home/yingyun/code/4.21-Flyme3.0/trunk/prebuilts/gcc/linux-x86/arm/arm-eabi-4.6/bin:/home/yingyun/bin"
     export PATH="$PATH:/home/yingyun/bin"
     export JAVA_HOME=/usr/lib/jvm/java-6-oracle
     export PATH=$JAVA_HOME/bin:$PATH
