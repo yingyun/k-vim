@@ -1,0 +1,65 @@
+w      next word's first character
+e      next word's last character
+b      previous word's first character
+ge     previous world's last character
+a      insert to the last word behind
+o      make the new insert line below
+r      replace current character
+R      replace Mode
+v      visual mode
+y      copy ,it's a operator so one line:yy   one word:yw combime operations
+Y      copy one line
+p      paste
+A      insert to the last of current line
+------------------------------------------------------------------------------------------------------------
+shit+j append to current line from below line
+dd     delete current line
+D      delete current line
+dG     delete to the file end
+dgg    delete to the file start 
+cw     modify current word 
+cis    modify current line
+dw     delete current word,but must at the first character
+daw    delete a word
+G      jump to last line of this file
+gg     jump to first line of this file
+x      delete current character
+0      jump to the first character from current line
+$      jump to the last character
+f(character)  find next character appear in current line,using ';' to repeat this operation
+F(character)  find upper character appear in current line,using ',' to repeat this operation
+%      jump to the most behind braches
+--------------------------------------------------------------------------------------------------------------
+''      jump to the previous location
+:num   jump to the specific number line
+numG   jump to the specific number line
+
+Ctrl+e move down the full screen by per line
+Ctrl+y move upper the full screen  by per line
+Ctrl+u move upper the full screen by per half screen
+Ctrl+d move down the full screen by per half screen
+Ctrl+f move down the full screen by per full screen
+Ctrl+b move upper the full screen by per full screen
+Ctrl+g get the current location info
+
+H      jump to the first line of this screen   HOME
+M      jump to the middle line of this screen  MIDDLE
+L      jump to the last line of this screen    LAST
+
+--------------------------------------------------------------------------------------------------------------
+/keyword *  search the specific keyword forward
+?keyword #  search the specific keyword backward
+:set ignorecase   or  :set noignorecase /<Up or Down> upper and down the locate 
+:set hlsearch or onhlsearch  highlight search 
+:set incsearch  fill up the serach keyword remain
+:set ruler   display current info 
+:set number  or  set nonumber   display number line
+:scriptnames   show all the scrpit location
+:edit filelocation
+:set smartindent
+:set cursorline
+:set autoindent
+
+
+ZZ  save the file ,equal to wq!
+ZQ  force exit

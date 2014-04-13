@@ -1,0 +1,142 @@
+Index: frameworks/native/services/surfaceflinger/SurfaceFlinger.cpp
+===================================================================
+--- frameworks/native/services/surfaceflinger/SurfaceFlinger.cpp	(revision 983)
++++ frameworks/native/services/surfaceflinger/SurfaceFlinger.cpp	(working copy)
+@@ -1561,6 +1561,7 @@
+ 
+ void SurfaceFlinger::doComposeSurfaces(const sp<const DisplayDevice>& hw, const Region& dirty)
+ {
++    ATRACE_CALL();
+     const int32_t id = hw->getHwcDisplayId();
+     HWComposer& hwc(getHwComposer());
+     HWComposer::LayerListIterator cur = hwc.begin(id);
+@@ -2366,129 +2367,10 @@
+ void SurfaceFlinger::dumpAllLocked(
+         String8& result, char* buffer, size_t SIZE) const
+ {
+-    // figure out if we're stuck somewhere
+-    const nsecs_t now = systemTime();
+-    const nsecs_t inSwapBuffers(mDebugInSwapBuffers);
+-    const nsecs_t inTransaction(mDebugInTransaction);
+-    nsecs_t inSwapBuffersDuration = (inSwapBuffers) ? now-inSwapBuffers : 0;
+-    nsecs_t inTransactionDuration = (inTransaction) ? now-inTransaction : 0;
+-
+-    /*
+-     * Dump library configuration.
+-     */
+-    result.append("Build configuration:");
+-    appendSfConfigString(result);
+-    appendUiConfigString(result);
+-    appendGuiConfigString(result);
+-    result.append("\n");
+-
+-    /*
+-     * Dump the visible layer list
+-     */
+-    const LayerVector& currentLayers = mCurrentState.layersSortedByZ;
+-    const size_t count = currentLayers.size();
+-    snprintf(buffer, SIZE, "Visible layers (count = %d)\n", count);
+-    result.append(buffer);
+-    for (size_t i=0 ; i<count ; i++) {
+-        const sp<LayerBase>& layer(currentLayers[i]);
+-        layer->dump(result, buffer, SIZE);
+-    }
+-
+-    /*
+-     * Dump the layers in the purgatory
+-     */
+-
+-    const size_t purgatorySize = mLayerPurgatory.size();
+-    snprintf(buffer, SIZE, "Purgatory state (%d entries)\n", purgatorySize);
+-    result.append(buffer);
+-    for (size_t i=0 ; i<purgatorySize ; i++) {
+-        const sp<LayerBase>& layer(mLayerPurgatory.itemAt(i));
+-        layer->shortDump(result, buffer, SIZE);
+-    }
+-
+-    /*
+-     * Dump Display state
+-     */
+-
+-    snprintf(buffer, SIZE, "Displays (%d entries)\n", mDisplays.size());
+-    result.append(buffer);
+-    for (size_t dpy=0 ; dpy<mDisplays.size() ; dpy++) {
+-        const sp<const DisplayDevice>& hw(mDisplays[dpy]);
+-        hw->dump(result, buffer, SIZE);
+-    }
+-
+-    /*
+-     * Dump SurfaceFlinger global state
+-     */
+-
+-    snprintf(buffer, SIZE, "SurfaceFlinger global state:\n");
+-    result.append(buffer);
+-
+     HWComposer& hwc(getHwComposer());
+-    sp<const DisplayDevice> hw(getDefaultDisplayDevice());
+-    const GLExtensions& extensions(GLExtensions::getInstance());
+-    snprintf(buffer, SIZE, "GLES: %s, %s, %s\n",
+-            extensions.getVendor(),
+-            extensions.getRenderer(),
+-            extensions.getVersion());
+-    result.append(buffer);
+-
+-    snprintf(buffer, SIZE, "EGL : %s\n",
+-            eglQueryString(mEGLDisplay, EGL_VERSION_HW_ANDROID));
+-    result.append(buffer);
+-
+-    snprintf(buffer, SIZE, "EXTS: %s\n", extensions.getExtension());
+-    result.append(buffer);
+-
+-    hw->undefinedRegion.dump(result, "undefinedRegion");
+-    snprintf(buffer, SIZE,
+-            "  orientation=%d, canDraw=%d\n",
+-            hw->getOrientation(), hw->canDraw());
+-    result.append(buffer);
+-    snprintf(buffer, SIZE,
+-            "  last eglSwapBuffers() time: %f us\n"
+-            "  last transaction time     : %f us\n"
+-            "  transaction-flags         : %08x\n"
+-            "  refresh-rate              : %f fps\n"
+-            "  x-dpi                     : %f\n"
+-            "  y-dpi                     : %f\n",
+-            mLastSwapBufferTime/1000.0,
+-            mLastTransactionTime/1000.0,
+-            mTransactionFlags,
+-            1e9 / hwc.getRefreshPeriod(HWC_DISPLAY_PRIMARY),
+-            hwc.getDpiX(HWC_DISPLAY_PRIMARY),
+-            hwc.getDpiY(HWC_DISPLAY_PRIMARY));
+-    result.append(buffer);
+-
+-    snprintf(buffer, SIZE, "  eglSwapBuffers time: %f us\n",
+-            inSwapBuffersDuration/1000.0);
+-    result.append(buffer);
+-
+-    snprintf(buffer, SIZE, "  transaction time: %f us\n",
+-            inTransactionDuration/1000.0);
+-    result.append(buffer);
+-
+-    /*
+-     * VSYNC state
+-     */
+-    mEventThread->dump(result, buffer, SIZE);
+-
+-    /*
+-     * Dump HWComposer state
+-     */
+     snprintf(buffer, SIZE, "h/w composer state:\n");
+     result.append(buffer);
+-    snprintf(buffer, SIZE, "  h/w composer %s and %s\n",
+-            hwc.initCheck()==NO_ERROR ? "present" : "not present",
+-                    (mDebugDisableHWC || mDebugRegion) ? "disabled" : "enabled");
+-    result.append(buffer);
+     hwc.dump(result, buffer, SIZE);
+-
+-    /*
+-     * Dump gralloc state
+-     */
+-    const GraphicBufferAllocator& alloc(GraphicBufferAllocator::get());
+-    alloc.dump(result);
+ }
+ 
+ const Vector< sp<LayerBase> >&

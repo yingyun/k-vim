@@ -1,0 +1,56 @@
+bool BootAnimation::cpuCrazyMode() {
+    //Boot up to full frequency 
+    const char * userSpace = "userspace";
+    const char * fullCPUFreq = "1200000";
+    int fd1 = open("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor", O_WRONLY);
+    if (fd1 >= 0) {
+        int success = write(fd1, userSpace, strlen(userSpace)+1);
+        if (!(success == strlen(userSpace)+1)) {
+                ALOGE("%s: write governor wrong!", __FUNCTION__);
+                close(fd1);
+                return false;
+        }
+        close(fd1);
+        ALOGE("%s: Success to change governor!", __FUNCTION__);
+    } else {
+        ALOGE("%s: open governor wrong!", __FUNCTION__);
+        return false;
+    }
+   
+    int fd2 = open("/sys/devices/system/cpu/cpu0/cpufreq/scaling_setspeed", O_WRONLY);
+    if (fd2 >= 0) {
+        int success = write(fd2, fullCPUFreq, strlen(fullCPUFreq)+1);
+        if (!(success == strlen(fullCPUFreq)+1)) {
+                ALOGE("%s: write frequency wrong!", __FUNCTION__);
+                close(fd2);
+                return false;
+        }
+        close(fd2);
+        ALOGE("%s: Success to change frequency!, write number is :%d ", __FUNCTION__, success);
+    } else {
+        ALOGE("%s: open frequency wrong!", __FUNCTION__);
+        return false;
+    }
+   
+    return true;
+}
+
+
+bool BootAnimation::cpuNormalMode() {
+    //Be normal
+    const char governor[] = "april";
+
+    int fd1 = open("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor", O_WRONLY);
+    if (fd1 >= 0) {
+        int success = write(fd1, governor, sizeof(governor));
+        if (!(success == sizeof(governor))) {
+                ALOGE("%s: write governor wrong!", __FUNCTION__);
+                return false;
+        }
+        ALOGE("%s: Success to change governor!", __FUNCTION__);
+    } else {
+        ALOGE("%s: open governor wrong!", __FUNCTION__);
+        return false;
+    }
+    return true;
+}

@@ -1,0 +1,21 @@
+Index: build/envsetup.sh
+===================================================================
+--- build/envsetup.sh	(revision 4453)
++++ build/envsetup.sh	(working copy)
+@@ -756,7 +756,7 @@
+    local GDB
+    case "$ARCH" in
+        x86) GDB=i686-linux-android-gdb;;
+-       arm) GDB=arm-linux-androideabi-gdb;;
++       arm) GDB=arm-linux-androideabi-gdbtui;;
+        mips) GDB=mipsel-linux-android-gdb;;
+        *) echo "Unknown arch $ARCH"; return 1;;
+    esac
+@@ -772,6 +772,7 @@
+        local PORT="$2"
+        if [ "$PORT" ] ; then
+            PORT=$2
++	   adb forward "tcp$PORT" "tcp$PORT"
+        else
+            PORT=":5039"
+        fi

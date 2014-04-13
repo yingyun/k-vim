@@ -1,0 +1,13 @@
+Index: BatteryController.java
+===================================================================
+--- BatteryController.java	(revision 3587)
++++ BatteryController.java	(working copy)
+@@ -176,7 +176,7 @@
+ 	final Runnable mAnimationCallback = new Runnable() {
+ 		@Override
+ 		public void run() {
+-			doAnimation();
++			//doAnimation();
+ 		}
+ 	};
+ }

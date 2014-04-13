@@ -1,0 +1,13 @@
+Index: system/core/libsync/sync_test.c
+===================================================================
+--- system/core/libsync/sync_test.c	(revision 1831)
++++ system/core/libsync/sync_test.c	(working copy)
+@@ -98,7 +98,7 @@
+                 return 1;
+             }
+             sync_data[i].fd[j] = fd;
+-            printf("sync_data[%d].fd[%d] = %d;\n", i, j, fd);
++            printf("sync_data[%d].fd[%d] = %d, var: %d ;\n", i, j, fd, val);
+ 
+         }
+     }

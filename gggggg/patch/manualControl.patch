@@ -1,0 +1,58 @@
+diff --git a/libs/ui/FramebufferNativeWindow.cpp b/libs/ui/FramebufferNativeWindow.cpp
+old mode 100644
+new mode 100755
+index 8eb154a..6e4fca5
+--- a/libs/ui/FramebufferNativeWindow.cpp
++++ b/libs/ui/FramebufferNativeWindow.cpp
+@@ -24,7 +24,12 @@
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <unistd.h>
++#include <sys/types.h>
++#include <sys/stat.h>
+ #include <string.h>
++#include <cutils/properties.h>
++#include <fcntl.h>
+ #include <errno.h>
+ 
+ #include <cutils/log.h>
+@@ -45,7 +50,7 @@
+ #include <hardware/gralloc.h>
+ 
+ #include <private/ui/android_natives_priv.h>
+-
++#include <utils/CallStack.h>
+ // ----------------------------------------------------------------------------
+ namespace android {
+ // ----------------------------------------------------------------------------
+@@ -289,6 +294,29 @@ int FramebufferNativeWindow::queueBuffer(ANativeWindow* window,
+     GraphicLog& logger(GraphicLog::getInstance());
+     logger.log(GraphicLog::SF_FB_POST_BEFORE, index);
+ 
++    CallStack stack;
++    char value[5];
++    property_get("debug.sf.force.dump", value, "0");
++    int mDebugForceDump = atoi(value);
++    int fd = open("/proc/sysrq-trigger", O_WRONLY);
++    if (fd < 0)
++        LOGE("Open sysrq-trigger error!");
++    
++    if (mDebugForceDump == 1) {
++            LOGE("Crashing ..... ");
++           // write(fd, "c", 1);
++           stack.update();
++           stack.dump();
++           close(fd);
++    };
++
++    int pid;
++    int tid;
++    pid = getpid();
++    tid = gettid();
++    LOGE("Cui-->FramebufferNativeWindow::queueBuffer, PID=%d;  TID=%d; CurrentBuffIndex=%d",
++        (unsigned int)pid, (unsigned int)tid, index);
++
+     int res = fb->post(fb, handle);
+ 
+     logger.log(GraphicLog::SF_FB_POST_AFTER, index);

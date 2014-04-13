@@ -1,0 +1,8 @@
+    pthread_t ptid;
+    int pid;
+    int tid;
+    pid = getpid();
+    ptid = pthread_self();
+    tid = gettid();
+    LOGE("Cui-->fb_post, PID=%d; PThreadID=%u, (0x%x); TID=%d", 
+    (unsigned int)pid, (unsigned int)ptid,(unsigned int)ptid, (unsigned int)tid );

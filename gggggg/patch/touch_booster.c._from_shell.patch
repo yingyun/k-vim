@@ -1,0 +1,53 @@
+Index: arch/arm/mach-exynos/touch_booster.c
+===================================================================
+--- arch/arm/mach-exynos/touch_booster.c	(revision 4881)
++++ arch/arm/mach-exynos/touch_booster.c	(working copy)
+@@ -15,7 +15,8 @@
+ 
+ #include <mach/touch_booster.h>
+ 
+-#define DEFUALT_BOOST_CPUFREQ	600000	/* 600Mhz */
++#define IDEAL_MAX_A7_CPUFREQ          600000    /* 600Mhz */
++#define DEFUALT_BOOST_CPUFREQ	400000	/* 400Mhz */
+ #define DEFUALT_BOOST_TIME	100	/* 100ms */
+ #define MAX_BOOST_DEVICE		2
+ 
+@@ -28,17 +29,35 @@
+ static void start_boost(struct tb_private_info *info)
+ {
+ 	struct cpufreq_policy *policy;
++        unsigned int add_boost_freq = 0; 
++        bool boost_up_to_400 = false;
++        bool boost_up_to_600 = false;
+ 
+ 	policy = cpufreq_cpu_get(0);
+ 	if (policy) {
++        /*
++        *The general idea is that we boost up the freq while touch event was happened.
++        *If current freq was lower than 400Mhz, we boost up it to 400Mhz
++        *If current freq was lower than 600Mhz but higher than 400Mhz, we boost up it to 600Mhz
++        *This is just ideal model since we didn't lock any the CPU govenor locks in here .
++        */
+ 		if (info->boost_debug)
+ 			pr_info("%s ... current freq = %d\n", __func__, policy->cur);
+ 
+-		if (policy->cur < info->boost_cpufreq) {
++                if (policy->cur < info->boost_cpufreq)
++                        boost_up_to_400= true;
++                if (IDEAL_MAX_A7_CPUFREQ > policy->cur && policy->cur >= info->boost_cpufreq) {
++                        boost_up_to_600= true;
++                        add_boost_freq += IDEAL_MAX_A7_CPUFREQ - policy->cur;
++                }
++
++		if (boost_up_to_400 || boost_up_to_600) {
+ 			if (pm_qos_request_active(&boost_cpu_qos)) {
+ 				if (info->boost_debug)
+-					pr_info("%s: request %d cpu freq for %d msecs\n", __func__, info->boost_cpufreq, info->boost_time * multi_timeout);
+-				pm_qos_update_request_timeout(&boost_cpu_qos, info->boost_cpufreq, info->boost_time * multi_timeout);
++					pr_info("%s: request %d cpu freq for %d msecs\n", __func__, 
++					add_boost_freq + info->boost_cpufreq, info->boost_time * multi_timeout);
++				pm_qos_update_request_timeout(&boost_cpu_qos, 
++                                add_boost_freq + info->boost_cpufreq, info->boost_time * multi_timeout);
+ 			}
+ 		}
+ 		cpufreq_cpu_put(policy);

@@ -1,0 +1,21 @@
+#1:archiev&extract zip file
+tar xzvf xxxx.tar.gz -C specific_file ; tar czvf xxxx.tar.gz specific file
+-z  for tar.gz
+-j  for tar.bz2
+#2:cat multi zip file
+cat xxx.tgz* > yyy.tgz
+#3:make patch file. 
+diff -uprBN orig new > xxx.diff
+#4:patch
+patch [-RE] -p[0,1] < xxx.patch
+#5change git diff tool
+git difftool -t bc3/meld [-y] ./
+
+#6 Specify filter tag
+logcat-color | egrep '(AudioHardware | Environment)'
+
+#remount rootfS as r/w
+adb shell mount -o rw,remount /
+
+#mount debug FS
+adb shell mount -t debugfs none /sys/kernel/debug

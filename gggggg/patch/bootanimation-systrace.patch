@@ -1,0 +1,169 @@
+Index: BootAnimation.cpp
+===================================================================
+--- BootAnimation.cpp	(revision 2092)
++++ BootAnimation.cpp	(working copy)
+@@ -15,6 +15,7 @@
+  */
+ 
+ #define LOG_TAG "BootAnimation"
++#define ATRACE_TAG ATRACE_TAG_GRAPHICS
+ 
+ #include <stdint.h>
+ #include <sys/types.h>
+@@ -31,6 +32,7 @@
+ #include <utils/Errors.h>
+ #include <utils/Log.h>
+ #include <utils/threads.h>
++#include <utils/Trace.h>
+ 
+ #include <ui/PixelFormat.h>
+ #include <ui/Rect.h>
+@@ -52,16 +54,16 @@
+ 
+ #include "BootAnimation.h"
+ 
+-#ifdef PRODUCT_MX
++#ifdef PRODUCT_MX3
++#define MTHEME_BOOTANIMATION_FILE "/data/mtheme/boot/1080_1800/bootanimation.zip"
++#elif PRODUCT_MX2
++#define MTHEME_BOOTANIMATION_FILE "/data/mtheme/boot/800_1280/bootanimation.zip"
++#elif PRODUCT_MX
+ #define MTHEME_BOOTANIMATION_FILE "/data/mtheme/boot/640_960/bootanimation.zip"
+ #else
+-#define MTHEME_BOOTANIMATION_FILE "/data/mtheme/boot/800_1280/bootanimation.zip"
++#define MTHEME_BOOTANIMATION_FILE "/not/define/mtheme"
+ #endif
+ 
+-#ifdef PRODUCT_MX3
+-#define MTHEME_BOOTANIMATION_FILE "/data/mtheme/boot/1080_1800/bootanimation.zip"
+-#endif
+-
+ #define USER_BOOTANIMATION_FILE "/data/local/bootanimation.zip"
+ #define SYSTEM_BOOTANIMATION_FILE "/system/media/bootanimation.zip"
+ #define SYSTEM_ENCRYPTED_BOOTANIMATION_FILE "/system/media/bootanimation-encrypted.zip"
+@@ -202,6 +204,7 @@
+ 
+ status_t BootAnimation::initTexture(void* buffer, size_t len)
+ {
++    ATRACE_CALL();
+     //StopWatch watch("blah");
+ 
+     SkBitmap bitmap;
+@@ -209,7 +212,8 @@
+     SkImageDecoder* codec = SkImageDecoder::Factory(&stream);
+     codec->setDitherImage(false);
+     if (codec) {
+-    	ALOGD("initTexture codex kRGB_565_Config");
++//    	ALOGD("initTexture codex kRGB_565_Config");
++        ATRACE_NAME("decode");
+         codec->decode(&stream, &bitmap,
+         		 SkBitmap::kARGB_8888_Config,
+                 SkImageDecoder::kDecodePixels_Mode);
+@@ -232,6 +236,8 @@
+ 
+     switch (bitmap.getConfig()) {
+         case SkBitmap::kARGB_8888_Config:
++                { 
++            ATRACE_NAME("bindImg,4*8");
+             if (tw != w || th != h) {
+                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA,
+                         GL_UNSIGNED_BYTE, 0);
+@@ -241,9 +247,12 @@
+                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tw, th, 0, GL_RGBA,
+                         GL_UNSIGNED_BYTE, p);
+             }
++            }
+             break;
+ 
+         case SkBitmap::kRGB_565_Config:
++                {
++            ATRACE_NAME("binding,565");
+             if (tw != w || th != h) {
+                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tw, th, 0, GL_RGB,
+                         GL_UNSIGNED_SHORT_5_6_5, 0);
+@@ -253,6 +262,7 @@
+                 glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tw, th, 0, GL_RGB,
+                         GL_UNSIGNED_SHORT_5_6_5, p);
+             }
++            }
+             break;
+         default:
+             break;
+@@ -599,13 +609,13 @@
+         char path[256];
+         char pathType;
+         if (sscanf(l, "%d %d %d", &width, &height, &fps) == 3) {
+-            //LOGD("> w=%d, h=%d, fps=%d", fps, width, height);
++            ALOGD("> w=%d, h=%d, fps=%d", width, height, fps);
+             animation.width = width;
+             animation.height = height;
+             animation.fps = fps;
+         }
+         else if (sscanf(l, " %c %d %d %s", &pathType, &count, &pause, path) == 4) {
+-            //LOGD("> type=%c, count=%d, pause=%d, path=%s", pathType, count, pause, path);
++            ALOGD("> type=%c, count=%d, pause=%d, path=%s", pathType, count, pause, path);
+             Animation::Part part;
+             part.playUntilComplete = pathType == 'c';
+             part.count = count;
+@@ -618,6 +628,9 @@
+ 
+     // read all the data structures
+     const size_t pcount = animation.parts.size();
++    
++{
++    ATRACE_NAME("ReadDataStruct");
+     for (size_t i=0 ; i<numEntries ; i++) {
+         char name[256];
+         ZipEntryRO entry = zip.findEntryByIndex(i);
+@@ -647,6 +660,7 @@
+             }
+         }
+     }
++}
+ 
+     // clear screen
+     glShadeModel(GL_FLAT);
+@@ -703,6 +717,7 @@
+                 }
+ 
+                 if (!clearReg.isEmpty()) {
++                    ATRACE_NAME("clearReg");
+                     Region::const_iterator head(clearReg.begin());
+                     Region::const_iterator tail(clearReg.end());
+                     glEnable(GL_SCISSOR_TEST);
+@@ -714,7 +729,10 @@
+                     }
+                     glDisable(GL_SCISSOR_TEST);
+                 }
++                    {
++                 ATRACE_NAME("draw TexiOES");
+                 glDrawTexiOES(xc, yc, 0, animation.width, animation.height);
++                    }
+                 eglSwapBuffers(mDisplay, mSurface);
+ 
+                 nsecs_t now = systemTime();
+@@ -723,11 +741,13 @@
+                 lastFrame = now;
+ 
+                 if (delay > 0) {
++                    ATRACE_NAME("delay");
+                     struct timespec spec;
+                     spec.tv_sec  = (now + delay) / 1000000000;
+                     spec.tv_nsec = (now + delay) % 1000000000;
+                     int err;
+                     do {
++                        ATRACE_NAME("clock-nanosleep");
+                         err = clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &spec, NULL);
+                     } while (err<0 && errno == EINTR);
+                 }
+@@ -735,7 +755,10 @@
+                 checkExit();
+             }
+ 
++            {
++            ATRACE_NAME("sleep");
+             usleep(part.pause * ns2us(frameDuration));
++            }
+ 
+             // For infinite parts, we've now played them at least once, so perhaps exit
+             if(exitPending() && !part.count)

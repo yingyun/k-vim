@@ -1,0 +1,40 @@
+Index: hardware/samsung_slsi/exynos5/libhwc/ExynosHWC.cpp
+===================================================================
+--- hardware/samsung_slsi/exynos5/libhwc/ExynosHWC.cpp	(revision 1831)
++++ hardware/samsung_slsi/exynos5/libhwc/ExynosHWC.cpp	(working copy)
+@@ -13,8 +13,12 @@
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  */
++ 
+ #include "ExynosHWC.h"
++#include <utils/Trace.h>
+ 
++#define ATRACE_TAG ATRACE_TAG_GRAPHICS
++
+ #if defined(USES_CEC)
+ #include "libcec.h"
+ #endif
+@@ -3000,6 +3004,7 @@
+ static int exynos5_post_fimd(exynos5_hwc_composer_device_1_t *pdev,
+         hwc_display_contents_1_t* contents)
+ {
++    ATRACE_CALL();
+     exynos5_hwc_post_data_t *pdata = &pdev->bufs;
+     struct s3c_fb_win_config_data win_data;
+     struct s3c_fb_win_config *config = win_data.config;
+
+@@ -3795,8 +3743,12 @@
+ 
+     errno = 0;
+     uint64_t timestamp = strtoull(buf, NULL, 0);
+-    if (!errno)
++    if (!errno) {
++        char buf[30];
++        sprintf(buf, "EXN-TS %d", timestamp);
++        ATRACE_NAME(buf);
+         pdev->procs->vsync(pdev->procs, 0, timestamp);
++        }
+ #ifdef HWC_DYNAMIC_RECOMPOSITION
+     if (!errno) {
+         pdev->LastVsyncTimeStamp = timestamp;

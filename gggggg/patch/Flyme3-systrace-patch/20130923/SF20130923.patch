@@ -1,0 +1,340 @@
+Index: EventThread.cpp
+===================================================================
+--- EventThread.cpp	(revision 10319)
++++ EventThread.cpp	(working copy)
+@@ -149,6 +149,7 @@
+     // dispatch events to listeners...
+     const size_t count = signalConnections.size();
+     for (size_t i=0 ; i<count ; i++) {
++        ATRACE_NAME("Vsync_PostEvent");
+         const sp<Connection>& conn(signalConnections[i]);
+         // now see if we still need to report this event
+         status_t err = conn->postEvent(event);
+@@ -185,6 +186,9 @@
+         size_t vsyncCount = 0;
+         nsecs_t timestamp = 0;
+         for (int32_t i=0 ; i<HWC_DISPLAY_TYPES_SUPPORTED ; i++) {
++            char buf[30];
++            sprintf(buf, "Vsync_deliver %d", mVSyncEvent[i].header.timestamp);
++            ATRACE_NAME(buf);
+             timestamp = mVSyncEvent[i].header.timestamp;
+             if (timestamp) {
+                 // we have a vsync event to dispatch
+@@ -208,6 +212,7 @@
+         // find out connections waiting for events
+         size_t count = mDisplayEventConnections.size();
+         for (size_t i=0 ; i<count ; i++) {
++            ATRACE_NAME("Vsync_Event_handle");
+             sp<Connection> connection(mDisplayEventConnections[i].promote());
+             if (connection != NULL) {
+                 bool added = false;
+Index: Client.cpp
+===================================================================
+--- Client.cpp	(revision 10319)
++++ Client.cpp	(working copy)
+@@ -13,7 +13,9 @@
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  */
+-
++#define LOG_TAG "SurfaceFlinger"
++#define ATRACE_TAG ATRACE_TAG_GRAPHICS
++#include <utils/Trace.h>
+ #include <stdint.h>
+ #include <sys/types.h>
+ 
+@@ -56,6 +58,7 @@
+ 
+ size_t Client::attachLayer(const sp<LayerBaseClient>& layer)
+ {
++    ATRACE_CALL();
+     Mutex::Autolock _l(mLock);
+     size_t name = mNameGenerator++;
+     mLayers.add(name, layer);
+@@ -64,6 +67,7 @@
+ 
+ void Client::detachLayer(const LayerBaseClient* layer)
+ {
++    ATRACE_CALL();
+     Mutex::Autolock _l(mLock);
+     // we do a linear search here, because this doesn't happen often
+     const size_t count = mLayers.size();
+@@ -76,6 +80,7 @@
+ }
+ sp<LayerBaseClient> Client::getLayerUser(int32_t i) const
+ {
++    ATRACE_CALL();
+     Mutex::Autolock _l(mLock);
+     sp<LayerBaseClient> lbc;
+     wp<LayerBaseClient> layer(mLayers.valueFor(i));
+@@ -114,6 +119,7 @@
+         uint32_t w, uint32_t h, PixelFormat format,
+         uint32_t flags)
+ {
++    ATRACE_CALL();
+     /*
+      * createSurface must be called from the GL thread so that it can
+      * have access to the GL context.
+@@ -152,6 +158,7 @@
+     return static_cast<MessageCreateLayer*>( msg.get() )->getResult();
+ }
+ status_t Client::destroySurface(SurfaceID sid) {
++    ATRACE_CALL();
+     return mFlinger->onLayerRemoved(this, sid);
+ }
+ 
+Index: LayerBase.cpp
+===================================================================
+--- LayerBase.cpp	(revision 10319)
++++ LayerBase.cpp	(working copy)
+@@ -13,6 +13,8 @@
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  */
++#define ATRACE_TAG ATRACE_TAG_GRAPHICS
++#include <utils/Trace.h>
+ 
+ #include <stdlib.h>
+ #include <stdint.h>
+@@ -384,6 +386,7 @@
+ 
+ void LayerBase::drawWithOpenGL(const sp<const DisplayDevice>& hw, const Region& clip) const
+ {
++    ATRACE_CALL();
+     const uint32_t fbHeight = hw->getHeight();
+     const State& s(drawingState());
+ 
+Index: SurfaceFlinger.cpp
+===================================================================
+--- SurfaceFlinger.cpp	(revision 10319)
++++ SurfaceFlinger.cpp	(working copy)
+@@ -772,7 +772,7 @@
+ }
+ 
+ void SurfaceFlinger::onMessageReceived(int32_t what) {
+-    ATRACE_CALL();
++    ATRACE_NAME("SurfaceFlg-onMessageRecerived");
+     switch (what) {
+     case MessageQueue::INVALIDATE:
+         handleMessageTransaction();
+@@ -809,6 +809,7 @@
+ 
+ void SurfaceFlinger::doDebugFlashRegions()
+ {
++    ATRACE_CALL();
+     // is debugging enabled
+     if (CC_LIKELY(!mDebugRegion))
+         return;
+@@ -863,6 +864,7 @@
+ 
+ void SurfaceFlinger::preComposition()
+ {
++    ATRACE_CALL();
+     bool needExtraInvalidate = false;
+     const LayerVector& currentLayers(mDrawingState.layersSortedByZ);
+     const size_t count = currentLayers.size();
+@@ -978,6 +980,7 @@
+ }
+ 
+ void SurfaceFlinger::setUpHWComposer() {
++    ATRACE_CALL();
+     HWComposer& hwc(getHwComposer());
+     if (hwc.initCheck() == NO_ERROR) {
+         // build the h/w work list
+@@ -1508,6 +1511,7 @@
+ 
+ void SurfaceFlinger::handlePageFlip()
+ {
++    ATRACE_CALL();
+     Region dirtyRegion;
+ 
+     bool visibleRegions = false;
+@@ -1532,6 +1536,7 @@
+ void SurfaceFlinger::doDisplayComposition(const sp<const DisplayDevice>& hw,
+         const Region& inDirtyRegion)
+ {
++    ATRACE_CALL();
+     Region dirtyRegion(inDirtyRegion);
+ 
+     // compute the invalid region
+@@ -1568,6 +1573,7 @@
+ 
+ void SurfaceFlinger::doComposeSurfaces(const sp<const DisplayDevice>& hw, const Region& dirty)
+ {
++    ATRACE_CALL();
+     const int32_t id = hw->getHwcDisplayId();
+     HWComposer& hwc(getHwComposer());
+     HWComposer::LayerListIterator cur = hwc.begin(id);
+@@ -2152,6 +2158,7 @@
+ 
+ 
+ void SurfaceFlinger::onScreenAcquired(const sp<const DisplayDevice>& hw) {
++    ATRACE_CALL();
+     ALOGD("Screen acquired, type=%d flinger=%p", hw->getDisplayType(), this);
+     if (hw->isScreenAcquired()) {
+         // this is expected, e.g. when power manager wakes up during boot
+@@ -2175,6 +2182,7 @@
+ }
+ 
+ void SurfaceFlinger::onScreenReleased(const sp<const DisplayDevice>& hw) {
++    ATRACE_CALL();
+     ALOGD("Screen released, type=%d flinger=%p", hw->getDisplayType(), this);
+     if (!hw->isScreenAcquired()) {
+         ALOGD(" screen was previously released");
+Index: DisplayHardware/FramebufferSurface.cpp
+===================================================================
+--- DisplayHardware/FramebufferSurface.cpp	(revision 10319)
++++ DisplayHardware/FramebufferSurface.cpp	(working copy)
+@@ -14,7 +14,7 @@
+  ** See the License for the specific language governing permissions and
+  ** limitations under the License.
+  */
+-
++#define ATRACE_TAG ATRACE_TAG_GRAPHICS
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+@@ -23,6 +23,7 @@
+ #include <cutils/log.h>
+ 
+ #include <utils/String8.h>
++#include <utils/Trace.h>
+ 
+ #include <ui/Rect.h>
+ 
+@@ -57,6 +58,7 @@
+     mCurrentBuffer(0),
+     mHwc(hwc)
+ {
++    ATRACE_NAME("FBS-FramebufferSurface");
+     mName = "FramebufferSurface";
+     mBufferQueue->setConsumerName(mName);
+     mBufferQueue->setConsumerUsageBits(GRALLOC_USAGE_HW_FB |
+@@ -72,6 +74,7 @@
+ }
+ 
+ status_t FramebufferSurface::nextBuffer(sp<GraphicBuffer>& outBuffer, sp<Fence>& outFence) {
++    ATRACE_NAME("FBS-nextBuffer");
+     Mutex::Autolock lock(mMutex);
+ 
+     BufferQueue::BufferItem item;
+@@ -111,6 +114,7 @@
+ 
+ // Overrides ConsumerBase::onFrameAvailable(), does not call base class impl.
+ void FramebufferSurface::onFrameAvailable() {
++    ATRACE_NAME("FBS-onFrameAvailable");
+     sp<GraphicBuffer> buf;
+     sp<Fence> acquireFence;
+     status_t err = nextBuffer(buf, acquireFence);
+@@ -151,7 +155,8 @@
+ }
+ 
+ status_t FramebufferSurface::compositionComplete()
+-{
++{   
++    ATRACE_NAME("FBS-compositionComplete");
+     return mHwc.fbCompositionComplete();
+ }
+ 
+Index: DisplayHardware/HWComposer.cpp
+===================================================================
+--- DisplayHardware/HWComposer.cpp	(revision 10319)
++++ DisplayHardware/HWComposer.cpp	(working copy)
+@@ -470,7 +470,9 @@
+         const int32_t newValue = enabled ? eventBit : 0;
+         const int32_t oldValue = mDisplayData[disp].events & eventBit;
+         if (newValue != oldValue) {
+-            ATRACE_CALL();
++            char buf[25];
++            sprintf(buf, "eventControl %d", enabled);
++            ATRACE_NAME(buf);
+             err = mHwc->eventControl(mHwc, disp, event, enabled);
+             if (!err) {
+                 int32_t& events(mDisplayData[disp].events);
+@@ -489,6 +491,7 @@
+ }
+ 
+ status_t HWComposer::createWorkList(int32_t id, size_t numLayers) {
++    ATRACE_CALL();
+     if (uint32_t(id)>31 || !mAllocatedDisplayIDs.hasBit(id)) {
+         return BAD_INDEX;
+     }
+@@ -591,7 +594,12 @@
+         }
+     }
+ 
+-    int err = mHwc->prepare(mHwc, mNumDisplays, mLists);
++    int err = NO_ERROR;
++    {
++        ATRACE_NAME("HWC->Prepare");
++        err = mHwc->prepare(mHwc, mNumDisplays, mLists);
++    }
++//    int err = mHwc->prepare(mHwc, mNumDisplays, mLists);
+     ALOGE_IF(err, "HWComposer: prepare failed (%s)", strerror(-err));
+ 
+     if (err == NO_ERROR) {
+@@ -676,9 +684,11 @@
+             ALOGD("commit() waits fbPost() retrycount = %d", retrycount);
+         }
+ #endif
++        {
++            ATRACE_NAME("HWC->Set");
++            err = mHwc->set(mHwc, mNumDisplays, mLists);
++        }
+ 
+-        err = mHwc->set(mHwc, mNumDisplays, mLists);
+-
+ #if defined(NO_FENCE_SYNC)
+         if (hasGlesComposition(DisplayDevice::DISPLAY_PRIMARY))
+             flag_commit_called++;
+@@ -752,6 +762,7 @@
+ 
+ int HWComposer::fbPost(int32_t id,
+         const sp<Fence>& acquireFence, const sp<GraphicBuffer>& buffer) {
++        ATRACE_CALL();
+     if (mHwc && hwcHasApiVersion(mHwc, HWC_DEVICE_API_VERSION_1_1)) {
+ #if defined(NO_FENCE_SYNC)
+         int ret = setFramebufferTarget(id, acquireFence, buffer);
+Index: Layer.cpp
+===================================================================
+--- Layer.cpp	(revision 10319)
++++ Layer.cpp	(working copy)
+@@ -309,7 +309,8 @@
+ 
+ void Layer::onDraw(const sp<const DisplayDevice>& hw, const Region& clip) const
+ {
+-    ATRACE_CALL();
++    //ATRACE_CALL();
++    ATRACE_NAME("Layer->onDraw");
+ 
+     if (CC_UNLIKELY(mActiveBuffer == 0)) {
+         // the texture has not been created yet, this Layer has
+@@ -546,6 +547,7 @@
+         // compositionComplete() call.
+         // we'll trigger an update in onPreComposition().
+         if (mRefreshPending) {
++            ATRACE_NAME("mRefreshPending true");
+             return outDirtyRegion;
+         }
+ 
+Index: DisplayDevice.cpp
+===================================================================
+--- DisplayDevice.cpp	(revision 10319)
++++ DisplayDevice.cpp	(working copy)
+@@ -13,6 +13,8 @@
+  * See the License for the specific language governing permissions and
+  * limitations under the License.
+  */
++#define ATRACE_TAG ATRACE_TAG_GRAPHICS
++#include <utils/Trace.h>
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
+@@ -208,6 +210,7 @@
+ }
+ 
+ void DisplayDevice::swapBuffers(HWComposer& hwc) const {
++    ATRACE_NAME("DispalyDevice->swapBuffers");
+     EGLBoolean success = EGL_TRUE;
+     if (hwc.initCheck() != NO_ERROR) {
+         // no HWC, we call eglSwapBuffers()

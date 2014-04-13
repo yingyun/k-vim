@@ -1,0 +1,219 @@
+Index: SurfaceFlinger.cpp
+===================================================================
+--- SurfaceFlinger.cpp	(revision 4750)
++++ SurfaceFlinger.cpp	(working copy)
+@@ -887,11 +887,6 @@
+         invalidateHwcGeometry();
+ 
+         const LayerVector& currentLayers(mDrawingState.layersSortedByZ);
+-#if defined(PRESENTATION_SUBTITLES)
+-        int numMainExtDispLayers = 0;
+-        int numHdmiExtDispLayers = 0;
+-        int extDispLayerIndex;
+-#endif
+         for (size_t dpy=0 ; dpy<mDisplays.size() ; dpy++) {
+             Region opaqueRegion;
+             Region dirtyRegion;
+@@ -899,84 +894,48 @@
+             const sp<DisplayDevice>& hw(mDisplays[dpy]);
+             const Transform& tr(hw->getTransform());
+             const Rect bounds(hw->getBounds());
+-            
++                
+        /* 20130814: Cui, Yingyun
+ 	*This is drity hack in here, we should capture layers what we can see
+ 	*But in Flyme3 keyguard design, we have sufferd from bad wakeup performace.
+ 	*It will casue SF no time to restore all state which used to indicate 
+ 	*visible layers.So, compute the visible layer even though the screen was blank.
+ 	*/
++            ALOGD("----------------------------------");
++            ALOGD("HW bounds [%3d, %3d, %3d, %3d]\n",
++                bounds.left, bounds.top, bounds.right, bounds.bottom);
+ 	    //Cui: Always perform visble region calculation
+             if (1/*hw->canDraw()*/) {
+                 SurfaceFlinger::computeVisibleRegions(currentLayers,
+                         hw->getLayerStack(), dirtyRegion, opaqueRegion);
+ 
+                 const size_t count = currentLayers.size();
++                
+                 for (size_t i=0 ; i<count ; i++) {
+                     const sp<LayerBase>& layer(currentLayers[i]);
+                     const Layer::State& s(layer->drawingState());
+-#if defined(PRESENTATION_SUBTITLES)
+-                    int flags = 0;
+-                    sp<Layer> l = layer->getLayer();
+-                    sp<GraphicBuffer> gb = NULL;
+-                    if (l != NULL)
+-                        gb = layer->getLayer()->getActiveBuffer();
+-                    if (gb != NULL)
+-                        flags = gb->getUsage();
+-                    if (flags & GRALLOC_USAGE_EXTERNAL_DISP) {
+-                        if (dpy == DisplayDevice::DISPLAY_PRIMARY &&
+-                                s.layerStack == hw->getLayerStack())
+-                            numMainExtDispLayers++;
+-                        if (dpy == DisplayDevice::DISPLAY_EXTERNAL &&
+-                                s.layerStack == hw->getLayerStack())
+-                            numHdmiExtDispLayers++;
+-                        extDispLayerIndex = i;
+-                    }
+-#endif
+                     //Cui: Calculate visible region while screen was blank.
+                     //if (s.layerStack == hw->getLayerStack()) {
+                     if ((s.layerStack == hw->getLayerStack()) || !hw->isScreenAcquired()) {
+-                        Region drawRegion(tr.transform(
+-                                layer->visibleNonTransparentRegion));
++                        Region drawRegion(tr.transform(layer->visibleNonTransparentRegion));
++                        drawRegion.dump(layer->getName().string(), 0);
+                         drawRegion.andSelf(bounds);
++
+                         if (!drawRegion.isEmpty()) {
++                            ALOGD("+++===>Pass andSelf, add this layer<===+++");
+                             layersSortedByZ.add(layer);
+                         }
+                     }
+                 }
+-#if defined(PRESENTATION_SUBTITLES)
+-                /* Get HWC service */
+-                sp<IServiceManager> sm = defaultServiceManager();
+-                sp<IExynosHWCService> hwc =
+-                    interface_cast<android::IExynosHWCService>(sm->getService(String16("Exynos.HWCService")));
+-                if (hw->getLayerStack() != 0 &&
+-                        dpy == DisplayDevice::DISPLAY_EXTERNAL &&
+-                        numHdmiExtDispLayers == 0 && numMainExtDispLayers == 1) {
+-                    /* Push LCD video layer into HDMI layerStack */
+-                    const sp<LayerBase> &layer(currentLayers[extDispLayerIndex]);
+-                    Region drawRegion(tr.transform(layer->visibleNonTransparentRegion));
+-                    Rect r = drawRegion.getBounds();
+-                    drawRegion.andSelf(bounds);
+-                    if (!drawRegion.isEmpty())
+-                        layersSortedByZ.add(layer);
+-
+-                    /* Force Mirror Mode for G3D rendering */
+-                    if (hwc != NULL)
+-                        hwc->setHdmiSubtitles(true);
+-                    else
+-                        ALOGE("Exynos.HWCService is unavailable");
+-                } else {
+-                    if (hwc != NULL)
+-                        hwc->setHdmiSubtitles(false);
+-                    else
+-                        ALOGE("Exynos.HWCService is unavailable");
+-                }
+-#endif
+             }
++            
+             hw->setVisibleLayersSortedByZ(layersSortedByZ);
+             hw->undefinedRegion.set(bounds);
+             hw->undefinedRegion.subtractSelf(tr.transform(opaqueRegion));
+             hw->dirtyRegion.orSelf(dirtyRegion);
++            dirtyRegion.dump("dirtyRegion", 0);
++            opaqueRegion.dump("opaqueRegion", 0);
++            ALOGD("^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+         }
+     }
+ }
+@@ -1342,6 +1301,8 @@
+         const LayerVector& currentLayers, uint32_t layerStack,
+         Region& outDirtyRegion, Region& outOpaqueRegion)
+ {
++
++    ALOGD("######computeVisibleRegions######");
+     ATRACE_CALL();
+ 
+     Region aboveOpaqueLayers;
+@@ -1390,34 +1351,12 @@
+          */
+         Region transparentRegion;
+ 
+-#ifdef USE_GRALLOC_FLAG_FOR_HDMI
+-        bool isExternalLayer = false;
+-        uint32_t usage = 0;
+-        if (layer->getUsage(&usage)) {
+-            if ((usage & GRALLOC_USAGE_EXTERNAL_FLEXIBLE) ||
+-                    (usage & GRALLOC_USAGE_EXTERNAL_VIRTUALFB) ||
+-                    (usage & GRALLOC_USAGE_EXTERNAL_ONLY))
+-                isExternalLayer = true;
+-        }
+-        if (isExternalLayer) {
+-            Rect bounds(layer->computeBounds());
+-            visibleRegion.set(bounds);
+-            layer->setVisibleRegion(visibleRegion);
+-            layer->setCoveredRegion(coveredRegion);
+-            layer->setVisibleNonTransparentRegion(
+-                    visibleRegion.subtract(transparentRegion));
+-            if (layer->contentDirty) {
+-                outDirtyRegion.orSelf(visibleRegion);
+-                layer->contentDirty = false;
+-            }
+-            continue;
+-        }
+-#endif
+-
+         // handle hidden surfaces by setting the visible region to empty
+         if (CC_LIKELY(layer->isVisible())) {
++            ALOGD("VisibleLayer %s", layer->getName().string());
+             const bool translucent = !layer->isOpaque();
+             Rect bounds(layer->computeBounds());
++            
+             visibleRegion.set(bounds);
+             if (!visibleRegion.isEmpty()) {
+                 // Remove the transparent area from the visible region
+@@ -1444,20 +1383,37 @@
+                     // the opaque region is the layer's footprint
+                     opaqueRegion = visibleRegion;
+                 }
++
++                ALOGD("___Layer Information___");
++                ALOGD("___translucent %d, opaque %d___", translucent, layer->isOpaque());
++                ALOGD("___layer bounds [%3d, %3d, %3d, %3d]___", \
++                bounds.left, bounds.top, bounds.right, bounds.bottom);
++                transparentRegion.dump("___ layer transparentRegion", 0);
++                opaqueRegion.dump("___layer opaqueRegion", 0);             
++                
++            } else {
++                    ALOGD("layer visibleRegion was null");
+             }
+         }
++        else {
++            ALOGD("Un-VisibleLayer %s", layer->getName().string());
++        }
+ 
+         // Clip the covered region to the visible region
+         coveredRegion = aboveCoveredLayers.intersect(visibleRegion);
++        coveredRegion.dump("___layer coveredRegion", 0);
+ 
+         // Update aboveCoveredLayers for next (lower) layer
+         aboveCoveredLayers.orSelf(visibleRegion);
++        aboveCoveredLayers.dump("aboveCoveredLayersRegion", 0);
+ 
+         // subtract the opaque region covered by the layers above us
+         visibleRegion.subtractSelf(aboveOpaqueLayers);
++        visibleRegion.dump("After remove aboveOpaque, visibleRegion is",0);
+ 
+         // compute this layer's dirty region
+         if (layer->contentDirty) {
++            ALOGD("dirty layer, restore his visibleRegion");
+             // we need to invalidate the whole region
+             dirty = visibleRegion;
+             // as well, as the old visible region
+@@ -1482,6 +1438,7 @@
+             const Region oldExposed = oldVisibleRegion - oldCoveredRegion;
+             dirty = (visibleRegion&oldCoveredRegion) | (newExposed-oldExposed);
+         }
++        dirty.dump("dirty region is ", 0);
+         dirty.subtractSelf(aboveOpaqueLayers);
+ 
+         // accumulate to the screen dirty region
+@@ -1495,9 +1452,12 @@
+         layer->setCoveredRegion(coveredRegion);
+         layer->setVisibleNonTransparentRegion(
+                 visibleRegion.subtract(transparentRegion));
++        aboveOpaqueLayers.dump("aboveOpaqueLayers", 0);
+     }
+ 
+     outOpaqueRegion = aboveOpaqueLayers;
++
++    ALOGD("************done************");
+ }
+ 
+ void SurfaceFlinger::invalidateLayerStack(uint32_t layerStack,
