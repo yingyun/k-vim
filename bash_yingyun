@@ -44,8 +44,7 @@
     alias refreshBashFile='. ~/.bash_yingyun'
     alias configBaseFile='vim ~/.bash_yingyun'
     alias gitRenderEvalutor='cd /home/yingyun/code/github/RendererEvalutorForAndroid'
-    alias gitGFX='cd /home/yingyun/code/github/AndroidGraphic'
-    alias gitCowboy='cd /home/yingyun/code/github/Cowboy'
+    alias gitHubFolder='cd /home/yingyun/code/github/'
 
     alias cocos2d='cd /home/yingyun/code/othrProjectSourceCode/cocos2d-x'
     alias stable_cocos2d='cd /home/yingyun/code/cocos2d-x-2.2/'
@@ -126,8 +125,8 @@
 
 
 #Rendering Evalutor
-    alias o3native_RenderingEvaluator='cd /home/yingyun/code/android-4.4_r1/external/RenderingEvalutor_Standard'
-    alias o3native_push_RenderingEvaluator='adb push /home/yingyun/code/android-4.4_r1/out/target/product/flo/system/bin/RenderEvaluator /system/bin/'
+    alias o3native_RenderingEvaluator='cd $A4_ROOT/external/RenderingEvalutor_Standard'
+    alias o3native_push_RenderingEvaluator='adb push $A4_ROOT/out/target/product/flo/system/bin/RenderEvaluator /system/bin/'
 
 #kernel
     alias l3='cd /home/yingyun/code/linux-3.4.5-m65/trunk'
@@ -135,11 +134,11 @@
     alias l3config='vim /home/yingyun/code/linux-3.4.5-m65/trunk/arch/arm/configs/m6x_v31_eng_defconfig'
 
 #adb command
-    alias arem='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb remount'
-    alias ashell='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb shell'
-    alias akill='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb kill-server'
-    alias apush='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb push'
-    alias apull='/home/yingyun/code/android-4.4_r1/out/host/linux-x86/bin/adb pull'
+    alias arem='$A4_ROOT/out/host/linux-x86/bin/adb remount'
+    alias ashell='$A4_ROOT/out/host/linux-x86/bin/adb shell'
+    alias akill='$A4_ROOT/out/host/linux-x86/bin/adb kill-server'
+    alias apush='$A4_ROOT/out/host/linux-x86/bin/adb push'
+    alias apull='$A4_ROOT/out/host/linux-x86/bin/adb pull'
 
 
 #Export Environment variable
