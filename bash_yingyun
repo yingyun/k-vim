@@ -68,9 +68,11 @@
 
 #development related
 #framework
-    alias f3='cd /home/yingyun/code/4.21-Flyme3.0/trunk'
+    F3_ROOT=/home/yingyun/code/4.21-Flyme3.0/trunk/
+    alias f3='cd $F3_ROOT'
     alias f3out='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/'
     alias f3sf='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/services/surfaceflinger'
+    alias f3wm='cd $F3_ROOT/frameworks/base/services/java/com/android/server/wm'
     alias f3sfpush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libsurfaceflinger.so /system/lib/'
     alias f3hwui='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/base/libs/hwui'
     alias f3hwuipush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libhwui.so /system/lib/'
@@ -95,6 +97,7 @@
     alias a4='cd $A4_ROOT'
     alias a4out='cd $A4_ROOT/out/target/product/flo'
     alias a4sf='cd $A4_ROOT/frameworks/native/services/surfaceflinger'
+    alias a4wm='cd $A4_ROOT/frameworks/base/services/java/com/android/server/wm'
     alias a4sfpush='adb push $A4_ROOT/out/target/product/flo/system/lib/libsurfaceflinger.so /system/lib/'
     alias a4sf_main_push='adb push $A4_ROOT/out/target/product/flo/system/bin/surfaceflinger /system/bin/'
     alias a4hwui='cd $A4_ROOT/frameworks/base/libs/hwui'
@@ -111,6 +114,7 @@
     alias k4='cd $KK_ROOT'
     alias k4out='cd $KK_ROOT/out/target/product/mx3'
     alias k4sf='cd $KK_ROOT/frameworks/native/services/surfaceflinger'
+    alias k4wm='cd $KK_ROOT/frameworks/base/services/java/com/android/server/wm'
     alias k4sfpush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libsurfaceflinger.so /system/lib/'
     alias k4sf_main_push='adb push $KK_ROOT/out/target/product/mx3/system/bin/surfaceflinger /system/bin/'
     alias k4hwui='cd $KK_ROOT/frameworks/base/libs/hwui'
