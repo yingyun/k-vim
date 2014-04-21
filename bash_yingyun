@@ -150,8 +150,6 @@
     export PATH="$PATH:/home/yingyun/bin"
     export JAVA_HOME=/usr/lib/jvm/java-6-oracle
     export PATH=$JAVA_HOME/bin:$PATH
-    export NDK_ROOT_LOCAL=/home/yingyun/code/NDK-R9-20131030/
-    export NDK_ROOT=/home/yingyun/code/NDK-R9-20131030/
     export ANDROID_SDK_ROOT_LOCAL=/home/yingyun/code/ADT-20130522/sdk/
     export SDK_ROOT=/home/yingyun/code/ADT-20130522/sdk/
 
