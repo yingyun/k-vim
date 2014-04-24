@@ -598,14 +598,14 @@ Bundle 'vim-scripts/matchit.zip'
 "################### 补全及快速编辑 ###################"
 
 "迄今为止用到的最好的自动VIM自动补全插件
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 "youcompleteme  默认tab  s-tab 和自动补全冲突
 "let g:ycm_key_list_select_completion=['<c-n>']
 "let g:ycm_key_list_select_completion = ['<Down>']
 "let g:ycm_key_list_previous_completion=['<c-p>']
 "let g:ycm_key_list_previous_completion = ['<Up>']
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py' "Global conf file path while not found it
-let g:ycm_confirm_extra_conf=0 "Turn off ask loaded every time
+"let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py' "Global conf file path while not found it
+"let g:ycm_confirm_extra_conf=0 "Turn off ask loaded every time
 
 
 "快速插入代码片段
