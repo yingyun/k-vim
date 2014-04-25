@@ -1,3 +1,3 @@
 adb remount
 adb push ~/code/gggggg/busybox /data/
-adb push ~/code/change_alias.sh /data/
+adb push ~/code/gggggg/change_alias.sh /data/
