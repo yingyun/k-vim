@@ -716,6 +716,8 @@ Bundle 'peterhoeg/vim-qml'
 "for enhanced C
 Bundle 'justinmk/vim-syntax-extra'
 
+Bundle 'yonchu/accelerated-smooth-scroll'
+
 "################### 其他 ###################"
 " task list
 Bundle 'vim-scripts/TaskList.vim'
