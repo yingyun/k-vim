@@ -34,6 +34,7 @@
 
     alias dump_sf='adb shell dumpsys SurfaceFlinger'
     alias dump_window='adb shell dmpsys window'
+    alias restart_phone='adb shell stop && adb shell start'
 
 #easy access
     alias wk='cd /home/yingyun/code/workSpace'
