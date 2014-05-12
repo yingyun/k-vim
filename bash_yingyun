@@ -32,6 +32,9 @@
     alias launchADT='/home/yingyun/code/ADT/adt-bundle-linux-x86_64-20140321/eclipse/eclipse & > /dev/null'
     alias buildLocal='mm -j10'
 
+    alias dump_sf='adb shell dumpsys SurfaceFlinger'
+    alias dump_window='adb shell dmpsys window'
+
 #easy access
     alias wk='cd /home/yingyun/code/workSpace'
     alias st-dir='cd /home/yingyun/code/systrace'
