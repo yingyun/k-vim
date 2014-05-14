@@ -48,12 +48,8 @@
     alias opensource='cd /home/yingyun/code/opensource'
     alias refreshBashFile='. ~/.bash_yingyun'
     alias configBaseFile='vim ~/.bash_yingyun'
-    alias gitRenderEvalutor='cd /home/yingyun/code/github/RendererEvalutorForAndroid'
+    alias gitRenderEvalutor='cd /home/yingyun/code/github/RendererEvaluator'
     alias gitHubFolder='cd /home/yingyun/code/github/'
-
-    alias cocos2d='cd /home/yingyun/code/othrProjectSourceCode/cocos2d-x'
-    alias stable_cocos2d='cd /home/yingyun/code/cocos2d-x-2.2/'
-    alias cowboy='cd /home/yingyun/code/cocos2d-x-2.2/project/Cowboy'
 
 #mesa
     alias mesa_git='cd /home/yingyun/code/SourceRefer/Mesa/mesa_git'
@@ -134,8 +130,8 @@
 
 
 #Rendering Evalutor
-    alias o3native_RenderingEvaluator='cd $A4_ROOT/external/RenderingEvalutor_Standard'
-    alias o3native_push_RenderingEvaluator='adb push $A4_ROOT/out/target/product/flo/system/bin/RenderEvaluator /system/bin/'
+    alias o3native_RenderingEvaluator='cd $KK_ROOT/external/RendererEvaluator'
+    alias o3native_push_RenderingEvaluator='adb push $KK_ROOT/out/target/product/mx3/system/bin/RenderEvaluator /system/bin/'
 
 #kernel
     alias l3='cd /home/yingyun/code/linux-3.4.5-m65/trunk'
