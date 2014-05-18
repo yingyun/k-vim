@@ -138,14 +138,6 @@
     alias l3build='. /home/yingyun/code/gggggg/kernelCompile.sh'
     alias l3config='vim /home/yingyun/code/linux-3.4.5-m65/trunk/arch/arm/configs/m6x_v31_eng_defconfig'
 
-#adb command
-    alias arem='$A4_ROOT/out/host/linux-x86/bin/adb remount'
-    alias ashell='$A4_ROOT/out/host/linux-x86/bin/adb shell'
-    alias akill='$A4_ROOT/out/host/linux-x86/bin/adb kill-server'
-    alias apush='$A4_ROOT/out/host/linux-x86/bin/adb push'
-    alias apull='$A4_ROOT/out/host/linux-x86/bin/adb pull'
-
-
 #Export Environment variable
     #export PATH="$PATH:/home/yingyun/code/4.21-Flyme3.0/trunk/prebuilts/gcc/linux-x86/arm/arm-eabi-4.6/bin:/home/yingyun/bin"
     export PATH="$PATH:/home/yingyun/bin"
@@ -153,4 +145,12 @@
     export PATH=$JAVA_HOME/bin:$PATH
     export ANDROID_SDK_ROOT_LOCAL=/home/yingyun/code/ADT-20130522/sdk/
     export SDK_ROOT=/home/yingyun/code/ADT-20130522/sdk/
+
+#adb command
+    alias arem='adb remount'
+    alias ashell='adb shell'
+    alias akill='adb kill-server'
+    alias apush='adb push'
+    alias apull='adb pull'
+
 
