@@ -97,7 +97,8 @@
     A4_ROOT=/home/yingyun/code/android-4.4.2_r2
 
     alias a4='cd $A4_ROOT'
-    alias a4out='cd $A4_ROOT/out/target/product/flo'
+    alias a4out_flo='cd $A4_ROOT/out/target/product/flo'
+    alias a4out_hammerhead='cd $A4_ROOT/out/target/product/hammerhead'
     alias a4sf='cd $A4_ROOT/frameworks/native/services/surfaceflinger'
     alias a4wm='cd $A4_ROOT/frameworks/base/services/java/com/android/server/wm'
     alias a4sfpush='adb push $A4_ROOT/out/target/product/flo/system/lib/libsurfaceflinger.so /system/lib/'
