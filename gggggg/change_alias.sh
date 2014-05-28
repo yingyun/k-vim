@@ -21,6 +21,9 @@ alias dsf='dumpsys SurfaceFlinger'
 alias dsw='dumpsys window'
 alias showSF='ps | grep surfaceflinger'
 
+#Show information
+alias pm_list_package='pm list packages'
+
 #Frequency Debug
 alias cg='cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor'
 alias cf='cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq'
