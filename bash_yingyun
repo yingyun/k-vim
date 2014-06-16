@@ -66,6 +66,7 @@
     alias gitDiff='git diff'
     alias gitDiffCached='git diff --cached'
     alias gitCheckout--='git checkout --'
+    alias gitMyCommit='git log --author=崔英云 --pretty=oneline'
 
 
 #development related
