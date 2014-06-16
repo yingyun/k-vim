@@ -129,7 +129,9 @@
     alias k4uipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libui.so /system/lib/'
     alias k4hwc='cd $KK_ROOT/hardware/samsung_slsi/exynos5/libhwc'
 
-
+#Rajawali Engine
+    alias rajEngine='cd ~/code/opensource/Rajawali'
+    alias rajEngine_Example='cd ~/code/opensource/RajawaliExamples'
 
 
 #Rendering Evalutor
