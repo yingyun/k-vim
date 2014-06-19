@@ -113,7 +113,7 @@
     alias a4hwc='cd $A4_ROOT/hardware/qcom/display/msm8960'
 
 #Kitkat
-    KK_ROOT=/home/yingyun/code/kitkat-Flyme
+    KK_ROOT=/home/yingyun/code/flyme4-dev
 
     alias k4='cd $KK_ROOT'
     alias k4out='cd $KK_ROOT/out/target/product/mx3'
