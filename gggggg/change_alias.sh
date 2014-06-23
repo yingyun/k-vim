@@ -18,6 +18,7 @@ alias ps='ps -t -p -P'
 
 #Gfx debug
 alias dsf='dumpsys SurfaceFlinger'
+alias dblurglass='dumpsys blurglassinfo'
 alias dsw='dumpsys window'
 alias showSF='ps | grep surfaceflinger'
 
