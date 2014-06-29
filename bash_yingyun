@@ -95,7 +95,7 @@
     alias f3build='./build_mx3.sh'
 
 #android4.4
-    A4_ROOT=/home/yingyun/code/android-4.4.2_r2
+    A4_ROOT=/home/yingyun/code/android-4.4.4_r1
 
     alias a4='cd $A4_ROOT'
     alias a4out_flo='cd $A4_ROOT/out/target/product/flo'
