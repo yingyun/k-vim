@@ -36,6 +36,11 @@
     alias dump_window='adb shell dmpsys window'
     alias restart_phone='adb shell stop && adb shell start'
 
+    alias c-logcat-color='adb logcat -c && logcat-color'
+    alias c-logcat='adb logcat -c'
+    alias logcat-surfaceflinger='adb logcat -s SurfaceFlinger'
+    alias logcat-BlurGlass='adb logcat -s BlurGlass'
+
 #easy access
     alias wk='cd /home/yingyun/code/workSpace'
     alias st-dir='cd /home/yingyun/code/systrace'
