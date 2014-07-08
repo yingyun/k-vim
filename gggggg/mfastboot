@@ -30,10 +30,10 @@ do
 			fi
 			dl_all=1;;
 		r)
-			fastboot reboot
+			m75Fastboot reboot
 			exit;;
 		c)
-			fastboot continue
+			m75Fastboot continue
 			exit;;
 		?)
 			echo "unsupported options $opt"
@@ -55,7 +55,7 @@ if [ ${dl_all} -eq 1 ];then
 			download_ok=0
 		fi
 		if [ -e ${dl_image} ];then
-			fastboot flash ${image} ${dl_image}
+			m75Fastboot flash ${image} ${dl_image}
 			if [ "$?" == "1" ];then
 			download_ok=0
 			fi
@@ -69,7 +69,7 @@ else
 		for image in ${all_imgs[@]}
 		do
 			if echo ${image_name} | grep $image ;then
-				fastboot flash $image ${dl_image}
+				m75Fastboot flash $image ${dl_image}
 				if [ "$?" == "0" ];then
 				let "dl_count=${dl_count}+1"
 				fi
