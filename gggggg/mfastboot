@@ -1,0 +1,92 @@
+# File:		mfastboot
+# Author:	Mars.
+# Email:	caoziqiang@meizu.com
+
+function usage()
+{
+	echo "Usage: mfastboot [OPTIONS] [image_path][images]"
+	echo "OPTIONS:"
+	echo -e "\t-a   download all images existed in image_path"
+	echo -e "\t-r   fastboot reboot"
+	echo -e "\t-c   fastboot continue"
+	echo "Example:"
+	echo "e.g mfastboot out/target/product/m75/boot.img"
+	echo "e.g mfastboot -a out/target/product/m75/"
+	exit 1
+}
+if [ $# -lt 1 ];then
+	usage
+fi
+
+dl_all=0
+while getopts "a:rc" opt;
+do
+	case $opt in
+		a)
+			DL_PATH=$OPTARG
+			if [ ! -d ${DL_PATH} ];then
+				echo "${DL_PATH} no such directory!"
+				exit 1
+			fi
+			dl_all=1;;
+		r)
+			fastboot reboot
+			exit;;
+		c)
+			fastboot continue
+			exit;;
+		?)
+			echo "unsupported options $opt"
+			usage;;
+	esac
+done
+
+download_ok=1
+all_imgs=("lk" "boot" "logo" "recovery" "system" "cache" "userdata" "custom")
+if [ ${dl_all} -eq 1 ];then
+	for image in ${all_imgs[@]}
+	do
+		if [ -e ${DL_PATH}/${image}.bin ];then
+			dl_image=${DL_PATH}/${image}.bin
+		elif [ -e ${DL_PATH}/${image}.img ];then
+			dl_image=${DL_PATH}/${image}.img
+		else
+			echo "there is no ${image} to download!"
+			download_ok=0
+		fi
+		if [ -e ${dl_image} ];then
+			fastboot flash ${image} ${dl_image}
+			if [ "$?" == "1" ];then
+			download_ok=0
+			fi
+		fi
+	done
+else
+	DL_IMAGE=($@)
+	for dl_image in ${DL_IMAGE[@]}
+	do
+		image_name=`basename ${dl_image}`
+		for image in ${all_imgs[@]}
+		do
+			if echo ${image_name} | grep $image ;then
+				fastboot flash $image ${dl_image}
+				if [ "$?" == "0" ];then
+				let "dl_count=${dl_count}+1"
+				fi
+			fi
+		done
+	done
+	if [ "$#" != ${dl_count} ];then
+		download_ok=0;
+	fi
+fi
+
+if [ ${download_ok} -eq 1 ];then
+	echo "##################"
+	echo "Download finished!"
+	echo "##################"
+else
+	echo "###############################"
+	echo "Your download maybe incomplete!"
+	echo "###############################"
+fi
