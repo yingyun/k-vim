@@ -83,8 +83,9 @@ fi
 
 if [ ${download_ok} -eq 1 ];then
 	echo "##################"
-	echo "Download finished!"
+	echo "Download finished!, rebooting now"
 	echo "##################"
+    m75Fastboot reboot
 else
 	echo "###############################"
 	echo "Your download maybe incomplete!"
