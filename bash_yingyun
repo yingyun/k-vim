@@ -49,6 +49,7 @@
     alias st-start-gfx-mx3='st-start -t 8 gfx input view sched freq wm am workq res dalvik sync disk'
     alias st-start-gfx-s4='st-start -t 8 gfx input view sched freq wm am res dalvik'
     alias st-start-gfx='st-start -t 8 gfx input view sched freq wm am workq res dalvik sync disk load'
+    alias st-start-gfx-mx4='st-start -t 8 gfx input view sched freq wm am workq res dalvik sync disk load perf'
 
     alias code='cd /home/yingyun/code/'
     alias opensource='cd /home/yingyun/code/opensource'
@@ -118,21 +119,21 @@
     alias a4hwc='cd $A4_ROOT/hardware/qcom/display/msm8960'
 
 #Kitkat
-    KK_ROOT=/home/yingyun/code/flyme4-dev
+    KK_ROOT=/home/yingyun/code/Flyme_MTK_Master
 
     alias k4='cd $KK_ROOT'
-    alias k4out='cd $KK_ROOT/out/target/product/mx3'
+    alias k4out='cd $KK_ROOT/out/target/product/m75'
     alias k4sf='cd $KK_ROOT/frameworks/native/services/surfaceflinger'
     alias k4wm='cd $KK_ROOT/frameworks/base/services/java/com/android/server/wm'
-    alias k4sfpush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libsurfaceflinger.so /system/lib/'
-    alias k4sf_main_push='adb push $KK_ROOT/out/target/product/mx3/system/bin/surfaceflinger /system/bin/'
+    alias k4sfpush='adb push $KK_ROOT/out/target/product/m75/system/lib/libsurfaceflinger.so /system/lib/'
+    alias k4sf_main_push='adb push $KK_ROOT/out/target/product/m75/system/bin/surfaceflinger /system/bin/'
     alias k4hwui='cd $KK_ROOT/frameworks/base/libs/hwui'
-    alias k4hwuipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libhwui.so /system/lib/'
+    alias k4hwuipush='adb push $KK_ROOT/out/target/product/m75/system/lib/libhwui.so /system/lib/'
     alias k4gui='cd $KK_ROOT/frameworks/native/libs/gui'
-    alias k4guipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libgui.so /system/lib/'
+    alias k4guipush='adb push $KK_ROOT/out/target/product/m75/system/lib/libgui.so /system/lib/'
     alias k4ui='cd $KK_ROOT/frameworks/native/libs/ui'
-    alias k4uipush='adb push $KK_ROOT/out/target/product/mx3/system/lib/libui.so /system/lib/'
-    alias k4hwc='cd $KK_ROOT/hardware/samsung_slsi/exynos5/libhwc'
+    alias k4uipush='adb push $KK_ROOT/out/target/product/m75/system/lib/libui.so /system/lib/'
+    #alias k4hwc='cd $KK_ROOT/hardware/samsung_slsi/exynos5/libhwc'
 
 #Rajawali Engine
     alias rajEngine='cd ~/code/opensource/Rajawali'
@@ -141,7 +142,7 @@
 
 #Rendering Evalutor
     alias o3native_RenderingEvaluator='cd $KK_ROOT/external/RendererEvaluator'
-    alias o3native_push_RenderingEvaluator='adb push $KK_ROOT/out/target/product/mx3/system/bin/RenderEvaluator /system/bin/'
+    alias o3native_push_RenderingEvaluator='adb push $KK_ROOT/out/target/product/m75/system/bin/RenderEvaluator /system/bin/'
 
 #kernel
     alias l3='cd /home/yingyun/code/linux-3.4.5-m65/trunk'
