@@ -49,7 +49,8 @@
     alias st-start-gfx-mx3='st-start -t 8 gfx input view sched freq wm am workq res dalvik sync disk'
     alias st-start-gfx-s4='st-start -t 8 gfx input view sched freq wm am res dalvik'
     alias st-start-gfx='st-start -t 8 gfx input view sched freq wm am workq res dalvik sync disk load'
-    alias st-start-gfx-mx4='st-start -t 8 gfx input view sched freq wm am hwui workq res dalvik sync disk load perf'
+    alias st-start-gfx-mx4='st-start -t 8 gfx input view sched freq wm am hwui workq res dalvik sync disk load perf hal rs idle mmc'
+    alias st-start-gfx-mx4-user='st-start -t 8 gfx input view sched freq wm am res dalvik load'
 
     alias code='cd /home/yingyun/code/'
     alias opensource='cd /home/yingyun/code/opensource'
