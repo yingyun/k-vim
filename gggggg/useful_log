@@ -9,4 +9,5 @@ checked by
 
 
 ***********Show FPS
-setprop user.meizu.showfps 1
+adb shell setprop debug.sf.stc_interval 500
+adb shell setprop debug.sf.meizu.fpsDump 1
