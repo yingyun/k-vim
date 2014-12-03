@@ -2,7 +2,7 @@
 
 ## repo default configuration
 ##
-REPO_URL = 'http://review.rnd.meizu.com/repo'
+REPO_URL = 'ssh://cyy@review.rnd.meizu.com:29418/repo'
 REPO_REV = 'master'
 
 # Copyright (C) 2008 Google Inc.
@@ -23,7 +23,7 @@ REPO_REV = 'master'
 VERSION = (1, 21)
 
 # increment this if the MAINTAINER_KEYS block is modified
-KEYRING_VERSION = (1, 2, 3)
+KEYRING_VERSION = (1, 2)
 MAINTAINER_KEYS = """
 
      Repo Maintainer <repo@android.kernel.org>
@@ -100,36 +100,36 @@ JuinEP+AwLAUZ1Bsx9ISC0Agpk2VeHXPL3FGhroEmoMvBzO0kTFGyoeT7PR/BfKv
 =AUp4
 -----END PGP PUBLIC KEY BLOCK-----
 
-     LiShengqun <maple.lsq@meizu.com>
+     LiShengqun (Meizu SCM) <maple.lsq@meizu.com>
 -----BEGIN PGP PUBLIC KEY BLOCK-----
-Version: GnuPG v1
+Version: GnuPG v1.4.11 (GNU/Linux)
 
-mQENBFMn9PcBCADBgA7I1UxLx3iuVEjmqor2RD2IbCSw82341iyyUihgyERKIEwd
-1BOyy/miLkWsOncpU6b0z8untkw/NXa0SLTqGfXh64q17R9oBPfuquIbNAVO31BL
-kaBRFOCG3zWJ7BJMjM5kdJ52OYIc4wvyqLA7mGwwS3+7d0eKg3wDPmiEnBQkCAPP
-uR4WoAn7CPovxfsj8uJlboqQrI0E1nP4+4sF4qnp3jUKBbxsT1NULvCetc5SXsO1
-lwv61uT9jdA6ZuAEztaQFQIHbq3wVnCnD+X//jSyt9650vQUDGHFrCgR35C3AbzW
-nXwdvguy4oUMCzhRKfDCOKflZ90/sVz+MTDDABEBAAG0IExpU2hlbmdxdW4gPG1h
-cGxlLmxzcUBtZWl6dS5jb20+iQE4BBMBAgAiBQJTJ/T3AhsDBgsJCAcDAgYVCAIJ
-CgsEFgIDAQIeAQIXgAAKCRDD49FnGC4YM2qrCACWo8YPf4uiq/mS4Sbm6ocbbeMO
-Xvx1OoEEPl/f6OD1mIkFxpcUIlOdVYYUgjNM062C3pqgoS+Y776sXCGyootwteaH
-GA72/RViglf3CHJ5UOK317sD4dBN4zD6g8VyUHC/cM8cG0DeXilHJtcQKx3VGbam
-X9WJS+qvt8iJS8ZShkilKo2pCgD8pJwBTWB7FF/K4w/M/Td308XAMVekjSzVPlQw
-/LSkOphkhOnfOWtP3bY/R/b/CwG3Z1BDxskcUAcYHsDliW92KMMOA5oRfwmzs6JK
-BZTpBuwFmMskD7ypvV0FpQifDfdiF1FJOE6K/GN0bdyuyg3r+MD2knNFdxWRuQEN
-BFMn9PcBCACfAF6RgwoSFLX8FMXVOYUja2ju7x82yZqhYocTayqNDY9Epdly9/y9
-hStiGE8lKJIw/NYnggVKmTfb2NUrocJ3n/zHb8rcOuG/sb7t3+tsKfzCCtJekDVp
-tLV46a3+Lct/7mcu/S16G//Tgtlfp0CIrw8gO32cBDD+8VnqrpWRvXpAsAZxQj6V
-PNyEiCLOtr0t81wdNtXnG5Nk90himXO8QA54GTXxeq9n73HLZAjLK3Uq9TuTwvWZ
-Xe3Wd8uukZBROdKbiEuOWMP+/JRnkEaUFi9GOP1/fDMBIL3Td7Vhyyd9/hALFqwk
-8T4x37BQGkdmTrfEpr6N+IKeF3CnMMZRABEBAAGJAR8EGAECAAkFAlMn9PcCGwwA
-CgkQw+PRZxguGDOkNAf/ZWAkcxKp9p+iSJX7ytQhaoN7X2JaWkfS0GnpgJV987g4
-xtcMdkwolk+6g3rG7CWhk1zHlCWq3i9jbMZrZOR6jVUPDYR+UEY0DRuWFUlMXgwW
-vi82g0JiHVqTlZapQlZfdF43EQzWlqNwLHBwtNl/PLfpyoVUo0jLMvghEFGhID9F
-PjGGCxeoJGwCd9uGOnRx1MZwz6g9yAhSasVh8cZaTciJRlBTu8dyvr6jwsJy0vbP
-0/12kHFLMDMpszgt5Z44FgbIFE3pfA4++78Cz6C4kiw6mDEat/TABxEadyEbsBpT
-Q6os5qMRnk1IAYNBas8UwIbZKKGqyH8R7FxjT/35GQ==
-=v9nR
+mQENBFRZ1cYBCACoZm0WwofOv50unIij+pXWWEKAvekExlLOQZuSdyfDT6dF9Fvh
+SoKVqHuJi7s8imUGRGTyEYAvKpz4YFbsCDX58IrsKQ1TyCj9Yw9+ZLLgAIMjS2dc
+ygStKVw+Q2vBXuwyFyfwIxz8EmvtmPY26v2xvdvdb0NjOOwo1capX3gCyVt+l2Hd
++yA1OprrRLKySNWrfX4/1AxYKY3WUbKM/NSVov79Ve/srl6jCxUdavh+Yyxi5yUi
+jogHmxut34haxAQNH4cnDe9poA3W4DXiwNug6fuGhdrVMUV7M3Nih5LjwhRah+BC
+H8PVQ/fhwe2Tc/SsUhu7AluUUnw7O5PMNzRVABEBAAG0LExpU2hlbmdxdW4gKE1l
+aXp1IFNDTSkgPG1hcGxlLmxzcUBtZWl6dS5jb20+iQE4BBMBAgAiBQJUWdXGAhsD
+BgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCOsRvSGAFJwgvhCACXvWq2wHsZ
+qSVLxqQN50ujGFUOnto30ay0fQb6Xr0VgufGnxzBrFq1iqmjplZbUwitKOm5z/tT
+DMmMOqXuFACGJuyDR4VT1R+PceZHEjVIL8t91QCatuErAm1t3e1/FcDCM7f63WN4
+wLIP7QS1wPYLNjkzopsAP4rQTj3QBI8VeSBIkxi4n0J5RpzzIpmU2oLGOQb11PVE
+Im1GKQ2dORP0CBDCKsRYns84WuhPYEpnRJj5CW1HBDuDmvJrbJOFM0CzY/XZzjkh
+rWByIiD3oZRS2jKW8Nv5NiaOaGrZTWvbBimjALSiX3GL886icb/i/kgZfWnTOKFm
+L0M3mTzO7nTkuQENBFRZ1cYBCADJV+nwKlwzJSnsPDHS6prCbwgBNNAxJ6WPOn8S
+EYpnkNuJQcU6pJ09EJ4Y6nncSMv1unsUOA+j4lHtRNCx4u0EN1VsfYiUM33Ne5p4
+NenLK0lKN9OW0PzYb+42OUaCrrBZ3TFL2DkU+hA7S3VDCMXR+R9K/hDqSjbS5sDt
+ZBSa5FwGq9hUaq2rS580Vg+9xWrwlyGakh3g6pyWhxXXeomRZMRafL1ktKjTa+hz
+JB+KwAvBcC0inDtHJ7BMZeXQrDfuhTPtE36FEEbGJZFGRoatCvQR55B3xfMDlEOf
+ENpIJWZ1wYaQoUjuDyckKXV8SQqsyl78KLsetNUmaDufFEkFABEBAAGJAR8EGAEC
+AAkFAlRZ1cYCGwwACgkQjrEb0hgBScK0ywf/Q5C5dsX5n0OonVWXqPy6eqBTsvMt
+0jJhhDulhqTjL6fmT+FfYfWVD3/703PY90lcp03T1sEDlUy9rgqyTpQb+ura7B/o
+ugxu4WMypO1CbvP4ehf0VwUj39EtJglqWhiis6gFya8CvmgipB/5ZJrRJUHOL1Zg
+2I3s0CUX8TNs8kfXAL+VfZPQszAjZaKS0ur0r6FJpAcA7HPrMKwny2mrsHgdXGBq
+SJ2JCluX9Wv1unykKjfW76/o3IOvb3nS+ldpLc9mlYDSisZdmI3CMi8miugRFZ9P
+G30sZm6q8vquEnLt4igTYTzvC+bg8Viaj+ejvQhoddvB1y07kQYm1Bg2gA==
+=PM79
 -----END PGP PUBLIC KEY BLOCK-----
 """
 
@@ -146,6 +146,7 @@ import errno
 import optparse
 import os
 import re
+import shutil
 import stat
 import subprocess
 import sys
@@ -773,12 +774,7 @@ def main(orig_args):
       try:
         _Init(args)
       except CloneFailure:
-        for root, dirs, files in os.walk(repodir, topdown=False):
-          for name in files:
-            os.remove(os.path.join(root, name))
-          for name in dirs:
-            os.rmdir(os.path.join(root, name))
-        os.rmdir(repodir)
+        shutil.rmtree(os.path.join(repodir, S_repo), ignore_errors=True)
         sys.exit(1)
       repo_main, rel_repo_dir = _FindRepo()
     else:
@@ -804,4 +800,8 @@ def main(orig_args):
 
 
 if __name__ == '__main__':
+  if ver[0] == 3:
+    _print('warning: Python 3 support is currently experimental. YMMV.\n'
+           'Please use Python 2.6 - 2.7 instead.',
+           file=sys.stderr)
   main(sys.argv[1:])
