@@ -61,10 +61,11 @@
     alias gitHubFolder='cd /home/yingyun/code/github/'
 
 #mesa
-    alias mesa_git='cd /home/yingyun/code/SourceRefer/Mesa/mesa_git'
-    alias mesa_demos_git='cd /home/yingyun/code/SourceRefer/Mesa/mesa_demos_git'
-    alias mesa_drm_git='cd /home/yingyun/code/SourceRefer/Mesa/mesa_drm_git'
-    alias mesa_glut_git='cd /home/yingyun/code/SourceRefer/Mesa/mesa_glut_git'
+    MESA_ROOT=/home/yingyun/code/opensource/mesa/
+    alias mesa-git='cd $MESA_ROOT/mesa-git/'
+    alias mesa-demos-git='cd $MESA_ROOT/mesa-demos-git/'
+    alias mesa-drm-git='cd $MESA_ROOT/mesa-drm-git/'
+    alias mesa-glut-git='cd $MESA_ROOT/mesa-glut-git/'
 
 #Git command
     alias gitStatus='git status'
@@ -159,6 +160,9 @@
     export PATH=$JAVA_HOME/bin:$PATH
     export ANDROID_SDK_ROOT_LOCAL=/home/yingyun/code/ADT-20130522/sdk/
     export SDK_ROOT=/home/yingyun/code/ADT-20130522/sdk/
+
+#For mesa library
+    export LD_LIBRARY_PATH=/usr/local/lib/
 
 #adb command
     alias adbstart-server='sudo /home/yingyun/bin/adb start-server'
