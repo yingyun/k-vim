@@ -54,6 +54,14 @@
     alias st-start-gfx-mx4-hwui-user='st-start -t 8 gfx input view sched freq wm am res dalvik load hwui'
 
     alias code='cd /home/yingyun/code/'
+    flyme_pyramid=/media/HUB/flyme_pyramid/
+    alias flyme_pyramid='cd $flyme_pyramid'
+    alias M85_base='cd $flyme_pyramid/M85_base'
+    alias M81_base='cd $flyme_pyramid/M81_base'
+    alias M76_base='cd $flyme_pyramid/M76_base'
+    alias meizu_base='cd $flyme_pyramid/meizu_base'
+    alias flyme_base='cd $flyme_pyramid/flyme_base'
+    alias AOSP_kernel='cd $flyme_pyramid/AOSP_Kernel'
     alias opensource='cd /home/yingyun/code/opensource'
     alias refreshBashFile='. ~/.bash_yingyun'
     alias configBaseFile='vim ~/.bash_yingyun'
