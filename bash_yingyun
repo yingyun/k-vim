@@ -25,27 +25,28 @@
     alias FixMe='grepString "FixMe" ./'
     alias cformat='. /home/yingyun/code/gggggg/cformat.sh'
     alias tree='tree -f'
-    alias syncOpenGrok='. ~/code/gggggg/syncOpenGrok.sh'
     alias g++C11='g++ -std=c++0x'
     alias Change_To_FULL_PERMISSION='sudo chmod -R 777 ./*'
     alias Change_To_My_Own='sudo chown yingyun:yingyun -R ./*'
-    alias launchADT='/home/yingyun/code/ADT/adt-bundle-linux-x86_64-20140321/eclipse/eclipse & > /dev/null'
     alias buildLocal='mm -j10'
 
     alias dump_sf='adb shell dumpsys SurfaceFlinger'
-    alias dump_window='adb shell dmpsys window'
+    alias dump_window='adb shell dumpsys window'
+    alias dump_activity='adb shell dumpsys activity'
     alias restart_phone='adb shell stop && adb shell start'
 
     alias c-logcat-color='adb logcat -c && logcat-color'
     alias c-logcat='adb logcat -c'
     alias logcat-surfaceflinger='adb logcat -s SurfaceFlinger'
-    alias logcat-BlurGlass='adb logcat -s BlurGlass'
 
 #easy access
     alias wk='cd /home/yingyun/code/workSpace'
-    alias st-dir='cd /home/yingyun/code/systrace'
-    alias st-start='python /home/yingyun/code/ADT/adt-bundle-linux-x86_64-20140321/sdk/platform-tools/systrace/systrace.py'
-    alias st-start-legacy='python /home/yingyun/code/ADT/adt-bundle-linux-x86_64-20140321/sdk/platform-tools/systrace/systrace-legacy.py'
+    alias st-dir='cd /home/yingyun/code/systrace_logs'
+    SYSTRACE_TOOL=/home/yingyun/code/aosp_code/android-sdk-linux/platform-tools/systrace/systrace.py
+    SYSTRACE_TOOL_LEGACY=/home/yingyun/code/aosp_code/android-sdk-linux/platform-tools/systrace/systrace-legacy.py
+    alias st-start='python $SYSTRACE_TOOL'
+    alias st-start-legacy='python $SYSTRACE_TOOL_LEGACY'
+
     alias st-start-gfx-mx3='st-start -t 8 gfx input view sched freq wm am workq res dalvik sync disk'
     alias st-start-gfx-s4='st-start -t 8 gfx input view sched freq wm am res dalvik'
     alias st-start-gfx='st-start -t 8 gfx input view sched freq wm am workq res dalvik sync disk load'
@@ -54,22 +55,19 @@
     alias st-start-gfx-mx4-hwui-user='st-start -t 8 gfx input view sched freq wm am res dalvik load hwui'
 
     alias code='cd /home/yingyun/code/'
-    flyme_pyramid=/media/HUB/flyme_pyramid/
+    flyme_pyramid=/home/yingyun/code/flyme_code/
     alias flyme_pyramid='cd $flyme_pyramid'
     alias M85_base='cd $flyme_pyramid/M85_base'
     alias M81_base='cd $flyme_pyramid/M81_base'
     alias M76_base='cd $flyme_pyramid/M76_base'
-    alias meizu_base='cd $flyme_pyramid/meizu_base'
     alias flyme_base='cd $flyme_pyramid/flyme_base'
-    alias AOSP_kernel='cd $flyme_pyramid/AOSP_Kernel'
-    alias opensource='cd /home/yingyun/code/opensource'
+    alias open_code='cd /home/yingyun/code/open_code'
     alias refreshBashFile='. ~/.bash_yingyun'
     alias configBaseFile='vim ~/.bash_yingyun'
-    alias gitRenderEvalutor='cd /home/yingyun/code/github/RendererEvaluator'
     alias gitHubFolder='cd /home/yingyun/code/github/'
 
 #mesa
-    MESA_ROOT=/home/yingyun/code/opensource/mesa/
+    MESA_ROOT=/home/yingyun/code/open_code/mesa/
     alias mesa-git='cd $MESA_ROOT/mesa-git/'
     alias mesa-demos-git='cd $MESA_ROOT/mesa-demos-git/'
     alias mesa-drm-git='cd $MESA_ROOT/mesa-drm-git/'
@@ -86,95 +84,38 @@
     alias gitMyCommit='git log --author=崔英云 --pretty=oneline'
     alias gitRevertLatestCommit='git reset --hard HEAD^'
 
+#AOSP code
+    A4_ROOT=/home/yingyun/code/aosp_code/android-mainstream/
 
-#development related
-#framework
-    F3_ROOT=/home/yingyun/code/4.21-Flyme3.0/trunk/
-    alias f3='cd $F3_ROOT'
-    alias f3out='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/'
-    alias f3sf='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/services/surfaceflinger'
-    alias f3wm='cd $F3_ROOT/frameworks/base/services/java/com/android/server/wm'
-    alias f3sfpush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libsurfaceflinger.so /system/lib/'
-    alias f3hwui='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/base/libs/hwui'
-    alias f3hwuipush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libhwui.so /system/lib/'
-    alias f3gui='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/libs/gui'
-    alias f3guipush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libgui.so /system/lib/'
-    alias f3ui='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/libs/ui'
-    alias f3uipush='adb push  ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib/libui.so /system/lib/'
-    alias f3hwc='cd /home/yingyun/code/4.21-Flyme3.0/trunk/hardware/samsung_slsi/exynos5/libhwc'
-    alias f3hwcpush='adb push ~/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/vendor/lib/hw/hwcomposer.exynos5.so /system/vendor/lib/hw/'
-    alias f3bootani='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/base/cmds/bootanimation'
-    alias f3bootanipush='adb push /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/bin/bootanimation /system/bin/'
-    alias f3agl='cd /home/yingyun/code/4.21-Flyme3.0/trunk/frameworks/native/opengl/libagl'
-    alias f3lib='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/lib'
-    alias f3bin='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/system/bin'
-    alias f3libd='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/symbols/system/lib'
-    alias f3bind='cd /home/yingyun/code/4.21-Flyme3.0/trunk/out/target/product/mx3/symbols/system/bin'
-    alias f3build='./build_mx3.sh'
-
-#android4.4
-    A4_ROOT=/home/yingyun/code/android-5.0.0_r2/
-
-    alias a4='cd $A4_ROOT'
-    alias a4out_flo='cd $A4_ROOT/out/target/product/flo'
-    alias a4out_hammerhead='cd $A4_ROOT/out/target/product/hammerhead'
-    alias a4sf='cd $A4_ROOT/frameworks/native/services/surfaceflinger'
-    alias a4wm='cd $A4_ROOT/frameworks/base/services/java/com/android/server/wm'
-    alias a4sfpush='adb push $A4_ROOT/out/target/product/flo/system/lib/libsurfaceflinger.so /system/lib/'
-    alias a4sf_main_push='adb push $A4_ROOT/out/target/product/flo/system/bin/surfaceflinger /system/bin/'
-    alias a4hwui='cd $A4_ROOT/frameworks/base/libs/hwui'
-    alias a4hwuipush='adb push $A4_ROOT/out/target/product/flo/system/lib/libhwui.so /system/lib/'
-    alias a4gui='cd $A4_ROOT/frameworks/native/libs/gui'
-    alias a4guipush='adb push $A4_ROOT/out/target/product/flo/system/lib/libgui.so /system/lib/'
-    alias a4ui='cd $A4_ROOT/frameworks/native/libs/ui'
-    alias a4uipush='adb push $A4_ROOT/out/target/product/flo/system/lib/libui.so /system/lib/'
-    alias a4hwc='cd $A4_ROOT/hardware/qcom/display/msm8960'
-
-#Kitkat
-    KK_ROOT=/home/yingyun/code/Flyme_MTK_Master
-
-    alias k4='cd $KK_ROOT'
-    alias k4out='cd $KK_ROOT/out/target/product/m75'
-    alias k4sf='cd $KK_ROOT/frameworks/native/services/surfaceflinger'
-    alias k4wm='cd $KK_ROOT/frameworks/base/services/java/com/android/server/wm'
-    alias k4sfpush='adb push $KK_ROOT/out/target/product/m75/system/lib/libsurfaceflinger.so /system/lib/'
-    alias k4sf_main_push='adb push $KK_ROOT/out/target/product/m75/system/bin/surfaceflinger /system/bin/'
-    alias k4hwui='cd $KK_ROOT/frameworks/base/libs/hwui'
-    alias k4hwuipush='adb push $KK_ROOT/out/target/product/m75/system/lib/libhwui.so /system/lib/'
-    alias k4gui='cd $KK_ROOT/frameworks/native/libs/gui'
-    alias k4guipush='adb push $KK_ROOT/out/target/product/m75/system/lib/libgui.so /system/lib/'
-    alias k4ui='cd $KK_ROOT/frameworks/native/libs/ui'
-    alias k4uipush='adb push $KK_ROOT/out/target/product/m75/system/lib/libui.so /system/lib/'
-    #alias k4hwc='cd $KK_ROOT/hardware/samsung_slsi/exynos5/libhwc'
-
-#Rajawali Engine
-    alias rajEngine='cd ~/code/opensource/Rajawali'
-    alias rajEngine_Example='cd ~/code/opensource/RajawaliExamples'
-
-
-#Rendering Evalutor
-    alias o3native_RenderingEvaluator='cd $KK_ROOT/external/RendererEvaluator'
-    alias o3native_push_RenderingEvaluator='adb push $KK_ROOT/out/target/product/m75/system/bin/RenderEvaluator /system/bin/'
-
-#kernel
-    alias l3='cd /home/yingyun/code/linux-3.4.5-m65/trunk'
-    alias l3build='. /home/yingyun/code/gggggg/kernelCompile.sh'
-    alias l3config='vim /home/yingyun/code/linux-3.4.5-m65/trunk/arch/arm/configs/m6x_v31_eng_defconfig'
+    alias aosp='cd $A4_ROOT'
+    alias aosp_out_flo='cd $A4_ROOT/out/target/product/flo'
+    alias aosp_out_hammerhead='cd $A4_ROOT/out/target/product/hammerhead'
+    alias aosp_sf='cd $A4_ROOT/frameworks/native/services/surfaceflinger'
+    alias aosp_wm='cd $A4_ROOT/frameworks/base/services/java/com/android/server/wm'
+    alias aosp_sfpush='adb push $A4_ROOT/out/target/product/flo/system/lib/libsurfaceflinger.so /system/lib/'
+    alias aosp_sf_main_push='adb push $A4_ROOT/out/target/product/flo/system/bin/surfaceflinger /system/bin/'
+    alias aosp_hwui='cd $A4_ROOT/frameworks/base/libs/hwui'
+    alias aosp_hwuipush='adb push $A4_ROOT/out/target/product/flo/system/lib/libhwui.so /system/lib/'
+    alias aosp_gui='cd $A4_ROOT/frameworks/native/libs/gui'
+    alias aosp_guipush='adb push $A4_ROOT/out/target/product/flo/system/lib/libgui.so /system/lib/'
+    alias aosp_ui='cd $A4_ROOT/frameworks/native/libs/ui'
+    alias aosp_uipush='adb push $A4_ROOT/out/target/product/flo/system/lib/libui.so /system/lib/'
+    alias aosp_hwc='cd $A4_ROOT/hardware/qcom/display/msm8960'
 
 #Export Environment variable
-    #export PATH="$PATH:/home/yingyun/code/4.21-Flyme3.0/trunk/prebuilts/gcc/linux-x86/arm/arm-eabi-4.6/bin:/home/yingyun/bin"
-    export PATH="$PATH:/home/yingyun/bin"
-    #export JAVA_HOME=/usr/lib/jvm/java-6-oracle
+    export PATH="$PATH:/home/yingyun/code/executable"
     export PATH=$JAVA_HOME/bin:$PATH
-    export ANDROID_SDK_ROOT_LOCAL=/home/yingyun/code/ADT-20130522/sdk/
-    export SDK_ROOT=/home/yingyun/code/ADT-20130522/sdk/
+    ANDROID_SDK=/home/yingyun/code/aosp_code/android-sdk-linux/
+    export ANDROID_SDK_ROOT_LOCAL=$ANDROID_SDK
+    export SDK_ROOT=$ANDROID_SDK
 
 #For mesa library
     export LD_LIBRARY_PATH=/usr/local/lib/
 
 #adb command
-    alias adbstart-server='sudo /home/yingyun/bin/adb start-server'
-    alias adbkill-server='sudo /home/yingyun/bin/adb kill-server'
+    EXECUTABLE_BIN=/home/yingyun/code/executable/
+    alias adbstart-server='sudo $EXECUTABLE_BIN/adb start-server'
+    alias adbkill-server='sudo $EXECUTABLE_BIN/adb kill-server'
     alias arem='adb remount'
     alias ashell='adb shell'
 
